@@ -15,7 +15,7 @@ import AddProperty from "./pages/AddProperty.jsx";
 import EditProperty from "./pages/EditProperty";
 import "./App.css";
 
-const API = "http://localhost:5000/api";
+const API = "https://pg-room-finder-backend.onrender.com/api";
 
 const cities = [
   "Delhi",
