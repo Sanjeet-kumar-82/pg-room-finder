@@ -1,0 +1,3227 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --owner-ink: #182139;
+  --owner-muted: #81899b;
+  --owner-line: #e9ecf3;
+  --owner-bg: #f6f7fb;
+  --owner-purple: #6558e8;
+}
+
+.owner-layout,
+.owner-layout * {
+  box-sizing: border-box;
+}
+
+.owner-layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--owner-bg);
+  color: var(--owner-ink);
+  font-family: 'DM Sans', sans-serif;
+}
+
+.owner-sidebar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex: 0 0 250px;
+  flex-direction: column;
+  width: 250px;
+  height: 100vh;
+  min-height: 100vh;
+  padding: 30px 17px 20px;
+  background: #fff;
+  border-right: 1px solid var(--owner-line);
+}
+
+.owner-brand {
+  margin: 0 0 45px 10px;
+  color: #202940;
+  font: 800 25px 'Manrope', sans-serif;
+  letter-spacing: -1.2px;
+  text-decoration: none;
+}
+
+.owner-brand span {
+  color: var(--owner-purple);
+}
+
+.owner-nav-label,
+.owner-eyebrow {
+  color: #969daf;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.owner-nav-label {
+  margin: 0 12px 13px;
+}
+
+.owner-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin: 4px 0;
+  padding: 13px 14px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #687187;
+  font: 600 13px 'DM Sans', sans-serif;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+.owner-nav:hover,
+.owner-nav.active {
+  background: #f0efff;
+  color: var(--owner-purple);
+}
+
+.owner-nav.active {
+  font-weight: 800;
+}
+
+.owner-nav-icon {
+  width: 22px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.owner-add-link {
+  margin-top: 10px;
+}
+
+.owner-sidebar-bottom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding: 17px 0 13px;
+  border-top: 1px solid var(--owner-line);
+}
+
+.owner-avatar {
+  display: grid;
+  flex: 0 0 43px;
+  place-items: center;
+  width: 43px;
+  height: 43px;
+  overflow: hidden;
+  border: 1px solid #e5e1ff;
+  border-radius: 50%;
+  background: #e9e7ff;
+  color: #5548d5;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.owner-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.owner-profile {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  gap: 4px;
+}
+
+.owner-profile strong {
+  overflow: hidden;
+  color: #252d43;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.owner-profile span {
+  color: var(--owner-muted);
+  font-size: 10px;
+}
+
+.owner-logout {
+  display: grid;
+  flex: 0 0 33px;
+  place-items: center;
+  width: 33px;
+  height: 33px;
+  border: 1px solid #ffe0e0;
+  border-radius: 9px;
+  background: #fff0f0;
+  color: #d63e4d;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.owner-logout:hover,
+.owner-logout-full:hover {
+  background: #ffe1e1;
+}
+
+.owner-logout-full {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #ffe0e0;
+  border-radius: 10px;
+  background: #fff5f5;
+  color: #d63e4d;
+  font: 700 12px 'DM Sans', sans-serif;
+  cursor: pointer;
+}
+
+.owner-main {
+  flex: 1;
+  width: calc(100% - 250px);
+  min-width: 0;
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 32px clamp(20px, 3vw, 48px);
+}
+
+.owner-topbar,
+.owner-top-actions,
+.owner-section-heading,
+.owner-card-top,
+.owner-card-actions,
+.owner-detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.owner-topbar {
+  margin-bottom: 28px;
+}
+
+.owner-topbar h1 {
+  margin: 6px 0 0;
+  font: 800 clamp(26px, 2.5vw, 34px) 'Manrope', sans-serif;
+  letter-spacing: -1px;
+}
+
+.owner-top-actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.owner-account {
+  color: #687187;
+  font-size: 12px;
+}
+
+.owner-online-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: #20b77a;
+}
+
+.owner-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 10px 15px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  font: 700 12px 'DM Sans', sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s, background .2s;
+}
+
+.owner-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px #17203312;
+}
+
+.owner-btn:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.owner-btn-dark {
+  background: var(--owner-purple);
+  color: #fff;
+}
+
+.owner-btn-dark:hover {
+  background: #5145d3;
+}
+
+.owner-btn-light {
+  border-color: #e4e1ff;
+  background: #f0efff;
+  color: #4f46c9;
+}
+
+.owner-btn-green {
+  flex: 1;
+  background: #e5f8ef;
+  color: #128454;
+}
+
+.owner-btn-red {
+  flex: 1;
+  background: #fff0f0;
+  color: #d63e4d;
+}
+
+.owner-welcome {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  overflow: hidden;
+  padding: clamp(24px, 3vw, 36px);
+  border-radius: 18px;
+  background: linear-gradient(115deg, #302a70, #6558e8 65%, #9388ff);
+  color: #fff;
+}
+
+.owner-welcome-copy {
+  position: relative;
+  z-index: 1;
+}
+
+.owner-welcome .owner-eyebrow {
+  color: #d4d0ff;
+}
+
+.owner-welcome h2 {
+  margin: 12px 0 8px;
+  font: 800 clamp(21px, 2.2vw, 30px) 'Manrope', sans-serif;
+  letter-spacing: -.8px;
+}
+
+.owner-welcome p {
+  max-width: 540px;
+  margin: 0;
+  color: #e3e1ff;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.owner-welcome-art {
+  display: grid;
+  flex: 0 0 85px;
+  place-items: center;
+  width: 85px;
+  height: 85px;
+  border: 1px solid #ffffff35;
+  border-radius: 24px;
+  background: #ffffff17;
+  font-size: 42px;
+  transform: rotate(-6deg);
+}
+
+.owner-message {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 13px 16px;
+  border: 1px solid #e5e2ff;
+  border-radius: 10px;
+  background: #fff;
+  color: #5145c8;
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.owner-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 17px;
+  margin: 24px 0 40px;
+}
+
+.owner-stat {
+  min-width: 0;
+  padding: 21px;
+  border: 1px solid var(--owner-line);
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 3px 12px #18234204;
+}
+
+.owner-stat-icon {
+  display: grid;
+  place-items: center;
+  width: 39px;
+  height: 39px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  font-size: 19px;
+}
+
+.owner-stat-icon.purple {
+  background: #f0efff;
+  color: #6558e8;
+}
+
+.owner-stat-icon.orange {
+  background: #fff1e5;
+  color: #e98a32;
+}
+
+.owner-stat-icon.blue {
+  background: #e9f4ff;
+  color: #3186dc;
+}
+
+.owner-stat-icon.green {
+  background: #e4f8ee;
+  color: #1aa46b;
+}
+
+.owner-stat > span {
+  display: block;
+  color: #6f788b;
+  font-size: 12px;
+}
+
+.owner-stat > strong {
+  display: block;
+  margin: 8px 0;
+  font: 800 29px 'Manrope', sans-serif;
+}
+
+.owner-stat small {
+  color: #9ba2b1;
+  font-size: 10px;
+}
+
+.owner-section {
+  margin: 0 0 42px;
+  scroll-margin-top: 25px;
+}
+
+.owner-section-heading {
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+.owner-section-heading h2 {
+  margin: 7px 0;
+  font: 800 clamp(21px, 2vw, 27px) 'Manrope', sans-serif;
+  letter-spacing: -.7px;
+}
+
+.owner-section-heading p {
+  margin: 0;
+  color: var(--owner-muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.owner-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.owner-booking-card,
+.owner-property-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--owner-line);
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 4px 15px #17203305;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.owner-booking-card {
+  padding: 20px;
+}
+
+.owner-booking-card:hover,
+.owner-property-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px #1720330c;
+}
+
+.owner-property-image {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 180px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #e9e7ff, #f3f2ff 60%, #e4f0ff);
+}
+
+.owner-property-image > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .3s ease;
+}
+
+.owner-property-card:hover .owner-property-image > img {
+  transform: scale(1.04);
+}
+
+.owner-property-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #6558e8;
+}
+
+.owner-property-placeholder span {
+  font-size: 48px;
+}
+
+.owner-property-placeholder small {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
+
+.owner-listing-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 7px 10px;
+  border: 1px solid #ffffff80;
+  border-radius: 7px;
+  background: #ffffffeb;
+  color: #5548d5;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.owner-property-body {
+  padding: 0 18px 18px;
+}
+
+.owner-property-body h3,
+.owner-booking-card h3 {
+  margin: 17px 0 7px;
+  color: #202940;
+  font: 800 17px 'Manrope', sans-serif;
+  overflow-wrap: anywhere;
+}
+
+.owner-location {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0 0 13px;
+  color: #858da0;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.owner-location span {
+  color: #6558e8;
+}
+
+.owner-address {
+  min-height: 34px;
+  margin: -5px 0 15px;
+  color: #7b8497;
+  font-size: 11px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.owner-rent-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  padding: 14px 0;
+  border-top: 1px solid var(--owner-line);
+  border-bottom: 1px solid var(--owner-line);
+}
+
+.owner-rent-list > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.owner-rent-list span {
+  color: #8b93a4;
+  font-size: 10px;
+}
+
+.owner-rent-list strong {
+  color: #4f46c9;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.owner-rent-list small {
+  color: #9ba2b1;
+  font-size: 9px;
+  font-weight: 500;
+}
+
+.owner-card-actions {
+  margin-top: 17px;
+  gap: 9px;
+}
+
+.owner-property-symbol {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: #f0efff;
+  color: var(--owner-purple);
+  font-size: 22px;
+}
+
+.owner-status {
+  padding: 6px 9px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.owner-status.pending {
+  background: #fff4df;
+  color: #b87912;
+}
+
+.owner-status.confirmed {
+  background: #e1f8ec;
+  color: #158451;
+}
+
+.owner-status.cancelled {
+  background: #ffeded;
+  color: #d13d4d;
+}
+
+.owner-booking-card .owner-location {
+  margin-bottom: 15px;
+}
+
+.owner-detail-row {
+  padding: 9px 0;
+  font-size: 11px;
+}
+
+.owner-detail-row > span {
+  color: #8b93a4;
+}
+
+.owner-detail-row > strong {
+  max-width: 65%;
+  color: #303950;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.owner-detail-row .owner-rent {
+  color: #4e46c8;
+  font-size: 13px;
+}
+
+.owner-count {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #ecebff;
+  color: #5b50cf;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.owner-empty {
+  padding: 42px 20px;
+  border: 1px dashed #d9dce7;
+  border-radius: 15px;
+  background: #fff;
+  color: var(--owner-muted);
+  font-size: 13px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.owner-empty-icon {
+  color: #6558e8;
+  font-size: 42px;
+}
+
+.owner-empty h3 {
+  margin: 10px 0 5px;
+  color: var(--owner-ink);
+  font: 800 17px 'Manrope', sans-serif;
+}
+
+.owner-empty p {
+  max-width: 460px;
+  margin: 0 auto 18px;
+}
+
+.owner-empty .owner-btn {
+  margin: 5px;
+}
+
+.owner-spinner {
+  width: 27px;
+  height: 27px;
+  margin: 0 auto 12px;
+  border: 3px solid #e6e3ff;
+  border-top-color: #6558e8;
+  border-radius: 50%;
+  animation: owner-spin .8s linear infinite;
+}
+
+@keyframes owner-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.owner-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 22px 0 8px;
+  border-top: 1px solid #e4e7ef;
+  color: #9299a9;
+  font-size: 11px;
+}
+
+.owner-footer a {
+  color: #6558e8;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.owner-loading {
+  padding: 30px;
+  color: #182139;
+  font-family: 'DM Sans', sans-serif;
+}
+
+@media (max-width: 1250px) {
+  .owner-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .owner-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 850px) {
+  .owner-sidebar {
+    flex-basis: 205px;
+    width: 205px;
+    padding: 24px 12px;
+  }
+
+  .owner-main {
+    width: calc(100% - 205px);
+    padding: 24px 18px;
+  }
+
+  .owner-brand {
+    margin-left: 7px;
+    font-size: 22px;
+  }
+
+  .owner-account {
+    display: none;
+  }
+
+  .owner-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .owner-layout {
+    display: block;
+  }
+
+  .owner-sidebar {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    padding: 15px 12px;
+    border-right: 0;
+    border-bottom: 1px solid var(--owner-line);
+  }
+
+  .owner-brand {
+    display: inline-block;
+    margin: 0 0 13px 4px;
+    font-size: 23px;
+  }
+
+  .owner-nav-label,
+  .owner-sidebar-bottom {
+    display: none;
+  }
+
+  .owner-nav {
+    display: inline-flex;
+    width: auto;
+    margin: 0 2px 5px 0;
+    padding: 9px 8px;
+    gap: 5px;
+    font-size: 10px;
+  }
+
+  .owner-nav-icon {
+    width: auto;
+    font-size: 14px;
+  }
+
+  .owner-add-link {
+    margin-top: 0;
+  }
+
+  .owner-logout-full {
+    width: auto;
+    margin-top: 7px;
+    padding: 8px 12px;
+  }
+
+  .owner-main {
+    width: 100%;
+    padding: 22px 14px;
+  }
+
+  .owner-topbar {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .owner-topbar h1 {
+    font-size: 25px;
+  }
+
+  .owner-top-actions {
+    max-width: 135px;
+  }
+
+  .owner-btn {
+    min-height: 37px;
+    padding: 9px 10px;
+    font-size: 11px;
+  }
+
+  .owner-welcome {
+    padding: 22px 17px;
+    border-radius: 14px;
+  }
+
+  .owner-welcome h2 {
+    font-size: 21px;
+  }
+
+  .owner-welcome p {
+    font-size: 12px;
+  }
+
+  .owner-welcome-art {
+    flex-basis: 48px;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    font-size: 25px;
+  }
+
+  .owner-stats {
+    gap: 10px;
+    margin: 17px 0 32px;
+  }
+
+  .owner-stat {
+    padding: 15px;
+  }
+
+  .owner-stat-icon {
+    width: 34px;
+    height: 34px;
+    margin-bottom: 12px;
+  }
+
+  .owner-stat > strong {
+    font-size: 25px;
+  }
+
+  .owner-stat > span {
+    font-size: 11px;
+  }
+
+  .owner-section-heading {
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .owner-section-heading h2 {
+    font-size: 21px;
+  }
+
+  .owner-section-heading p {
+    font-size: 11px;
+  }
+
+  .owner-count {
+    padding: 7px 8px;
+    font-size: 10px;
+  }
+
+  .owner-card-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .owner-property-image {
+    height: 205px;
+  }
+
+  .owner-footer {
+    flex-wrap: wrap;
+  }
+}
+/* Booking Accept / Reject buttons */
+.owner-booking-card .owner-card-actions {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 12px;
+  margin-top: 18px;
+  width: 100%;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.owner-booking-card .owner-card-actions .owner-btn {
+  display: inline-flex !important;
+  flex: 1;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Fix: Owner property Edit/Delete buttons */
+.owner-property-card .owner-card-actions {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+  margin-top: 17px !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.owner-property-card .owner-card-actions .owner-btn {
+  display: inline-flex !important;
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  color: #4f46c9 !important;
+}
+
+.owner-property-card .owner-card-actions .owner-btn-red {
+  background: #fff0f0 !important;
+  color: #d63e4d !important;
+  border-color: #ffe0e0 !important;
+}
+
+/* =================================
+   OWNER DASHBOARD HEADER DESIGN
+================================= */
+
+.owner-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 28px;
+  padding: 22px 26px;
+  background: linear-gradient(120deg, #ffffff 0%, #eff6ff 100%);
+  border: 1px solid #dbeafe;
+  border-radius: 17px;
+  box-shadow: 0 6px 22px rgba(37, 99, 235, 0.07);
+}
+
+.owner-topbar h1 {
+  margin: 7px 0 0;
+  color: #172554;
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(26px, 2.5vw, 34px);
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.owner-topbar .owner-eyebrow {
+  color: #2563eb;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.owner-top-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+}
+
+.owner-account {
+  display: inline-flex;
+  align-items: center;
+  padding: 11px 16px;
+  border: 1px solid #bfdbfe;
+  border-radius: 11px;
+  background: #ffffff;
+  color: #1e40af;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 3px 10px rgba(37, 99, 235, 0.05);
+}
+
+.owner-online-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: #16a34a;
+  box-shadow: 0 0 0 3px #dcfce7;
+}
+
+/* TABLET */
+@media (max-width: 850px) {
+  .owner-topbar {
+    padding: 19px 20px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .owner-topbar {
+    align-items: center;
+    padding: 16px;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-radius: 13px;
+  }
+
+  .owner-topbar h1 {
+    font-size: 23px;
+  }
+
+  .owner-top-actions {
+    gap: 6px;
+  }
+
+  .owner-account {
+    padding: 8px 10px;
+    font-size: 10px;
+  }
+}
+
+/* HEADER TEXT - PREMIUM COLORS */
+
+/* OWNER WORKSPACE - BLUE */
+.owner-topbar .owner-eyebrow {
+  color: #2563eb !important;
+  background: #dbeafe;
+  display: inline-block;
+  padding: 6px 11px;
+  border-radius: 6px;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: 1.8px !important;
+}
+
+/* DASHBOARD - DARK NAVY */
+.owner-topbar h1 {
+  color: #1e3a8a !important;
+  font-family: 'Manrope', sans-serif !important;
+  font-size: 32px !important;
+  font-weight: 800 !important;
+  letter-spacing: -1px !important;
+}
+
+/* ACCOUNT ACTIVE - BLUE PILL */
+.owner-topbar .owner-account {
+  color: #1d4ed8 !important;
+  background: #dbeafe !important;
+  border: 1px solid #93c5fd !important;
+  border-radius: 20px !important;
+  padding: 10px 16px !important;
+  font-weight: 800 !important;
+}
+
+/* GREEN ONLINE DOT */
+.owner-topbar .owner-online-dot {
+  background: #16a34a !important;
+  box-shadow: 0 0 0 3px #bbf7d0 !important;
+}
+
+@media (max-width: 600px) {
+  .owner-topbar h1 {
+    font-size: 25px !important;
+  }
+}
+
+/* ==========================================
+   ROOMFINDER OWNER SIDEBAR - PREMIUM DESIGN
+========================================== */
+
+/* SIDEBAR BACKGROUND */
+.owner-sidebar {
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #f0f7ff 55%,
+    #e8f2ff 100%
+  ) !important;
+
+  border-right: 1px solid #bfdbfe !important;
+  box-shadow: 5px 0 25px rgba(37, 99, 235, 0.07);
+  padding: 30px 18px 20px !important;
+}
+
+/* ROOMFINDER LOGO */
+.owner-brand {
+  display: inline-block;
+  margin: 0 0 45px 9px !important;
+
+  color: #172554 !important;
+  font-family: 'Manrope', sans-serif !important;
+  font-size: 28px !important;
+  font-weight: 900 !important;
+  letter-spacing: -1.5px !important;
+  line-height: 1.2;
+
+  text-decoration: none !important;
+  transition: transform .25s ease;
+}
+
+.owner-brand span {
+  color: #2563eb !important;
+}
+
+.owner-brand:hover {
+  transform: translateY(-2px);
+}
+
+/* WORKSPACE LABEL */
+.owner-nav-label {
+  margin: 0 12px 15px !important;
+
+  color: #64748b !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: 2px !important;
+}
+
+/* SIDEBAR MENU */
+.owner-nav {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  width: 100%;
+  margin: 5px 0 !important;
+  padding: 14px 15px !important;
+
+  border: 1px solid transparent !important;
+  border-radius: 12px !important;
+
+  background: transparent !important;
+  color: #475569 !important;
+
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+
+  text-decoration: none !important;
+  transition: all .25s ease !important;
+}
+
+/* MENU ICON */
+.owner-nav-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 25px !important;
+  font-size: 19px !important;
+  color: #3b82f6 !important;
+
+  transition: transform .25s ease;
+}
+
+/* MENU HOVER */
+.owner-nav:hover {
+  background: #dbeafe !important;
+  color: #1d4ed8 !important;
+  border-color: #bfdbfe !important;
+  transform: translateX(3px);
+}
+
+.owner-nav:hover .owner-nav-icon {
+  transform: scale(1.1);
+  color: #1d4ed8 !important;
+}
+
+/* ACTIVE MENU */
+.owner-nav.active {
+  background: linear-gradient(
+    110deg,
+    #2563eb,
+    #3b82f6
+  ) !important;
+
+  color: #ffffff !important;
+  border-color: #2563eb !important;
+  font-weight: 800 !important;
+
+  box-shadow: 0 5px 14px rgba(37, 99, 235, 0.22);
+}
+
+.owner-nav.active .owner-nav-icon {
+  color: #ffffff !important;
+}
+
+/* ADD PROPERTY MENU */
+.owner-add-link {
+  margin-top: 12px !important;
+}
+
+/* OWNER PROFILE AREA */
+.owner-sidebar-bottom {
+  border-top: 1px solid #bfdbfe !important;
+  padding: 18px 2px 13px !important;
+  gap: 11px;
+}
+
+/* PROFILE AVATAR */
+.owner-avatar {
+  width: 44px !important;
+  height: 44px !important;
+  flex: 0 0 44px !important;
+
+  background: #dbeafe !important;
+  border: 2px solid #93c5fd !important;
+  color: #1d4ed8 !important;
+
+  box-shadow: 0 3px 10px rgba(37, 99, 235, 0.10);
+}
+
+/* PROFILE NAME */
+.owner-profile strong {
+  color: #172554 !important;
+  font-family: 'Manrope', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+}
+
+.owner-profile span {
+  color: #64748b !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 10px !important;
+}
+
+/* LOGOUT BUTTON */
+.owner-logout-full {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  width: 100%;
+  margin-top: 8px;
+  padding: 12px !important;
+
+  background: #fff1f2 !important;
+  border: 1px solid #fecdd3 !important;
+  border-radius: 11px !important;
+
+  color: #be123c !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+
+  transition: all .25s ease !important;
+}
+
+.owner-logout-full:hover {
+  background: #ffe4e6 !important;
+  border-color: #fda4af !important;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(190, 18, 60, 0.08);
+}
+
+/* MOBILE SIDEBAR */
+@media (max-width: 600px) {
+  .owner-sidebar {
+    padding: 16px 12px !important;
+    background: linear-gradient(
+      110deg,
+      #ffffff,
+      #eff6ff
+    ) !important;
+  }
+
+  .owner-brand {
+    margin: 0 0 14px 4px !important;
+    font-size: 25px !important;
+  }
+
+  .owner-nav {
+    padding: 10px 9px !important;
+    font-size: 10px !important;
+    border-radius: 9px !important;
+  }
+
+  .owner-nav.active {
+    box-shadow: 0 3px 9px rgba(37, 99, 235, 0.16);
+  }
+
+  .owner-logout-full {
+    margin-top: 7px;
+  }
+}
+
+/* =========================================
+   ROOMFINDER - PREMIUM SIDEBAR TYPOGRAPHY
+========================================= */
+
+/* LOGO */
+.owner-sidebar .owner-brand {
+  display: inline-block;
+  margin: 0 0 45px 8px !important;
+  font-family: 'Manrope', sans-serif !important;
+  font-size: 30px !important;
+  font-weight: 900 !important;
+  letter-spacing: -1.8px !important;
+  line-height: 1.15;
+  color: #172554 !important;
+  text-decoration: none !important;
+  text-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+}
+
+.owner-sidebar .owner-brand span {
+  color: #2563eb !important;
+  font-weight: 900 !important;
+}
+
+/* WORKSPACE LABEL */
+.owner-sidebar .owner-nav-label {
+  margin: 0 12px 16px !important;
+  color: #94a3b8 !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: 2.2px !important;
+  text-transform: uppercase;
+}
+
+/* MENU TEXT */
+.owner-sidebar .owner-nav {
+  display: flex !important;
+  align-items: center;
+  gap: 14px !important;
+  min-height: 50px;
+  margin: 6px 0 !important;
+  padding: 13px 15px !important;
+
+  border: 1px solid transparent !important;
+  border-radius: 13px !important;
+
+  color: #475569 !important;
+  font-family: 'Manrope', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 750 !important;
+  letter-spacing: -0.15px !important;
+
+  transition: all .25s ease !important;
+}
+
+/* ICON STYLE */
+.owner-sidebar .owner-nav-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px !important;
+  font-size: 20px !important;
+  color: #3b82f6 !important;
+  transition: all .25s ease;
+}
+
+/* HOVER */
+.owner-sidebar .owner-nav:hover {
+  background: linear-gradient(110deg, #e0edff, #f0f7ff) !important;
+  border-color: #bfdbfe !important;
+  color: #1d4ed8 !important;
+  transform: translateX(4px);
+}
+
+.owner-sidebar .owner-nav:hover .owner-nav-icon {
+  color: #1d4ed8 !important;
+  transform: scale(1.12);
+}
+
+/* ACTIVE MENU */
+.owner-sidebar .owner-nav.active {
+  background: linear-gradient(115deg, #1d4ed8, #3b82f6) !important;
+  border-color: #2563eb !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  box-shadow: 0 7px 17px rgba(37, 99, 235, 0.22);
+}
+
+.owner-sidebar .owner-nav.active .owner-nav-icon {
+  color: #ffffff !important;
+}
+
+/* ADD PROPERTY */
+.owner-sidebar .owner-add-link {
+  margin-top: 13px !important;
+  background: linear-gradient(110deg, #dbeafe, #eff6ff) !important;
+  border: 1px solid #bfdbfe !important;
+  color: #1d4ed8 !important;
+  font-weight: 800 !important;
+}
+
+.owner-sidebar .owner-add-link .owner-nav-icon {
+  color: #2563eb !important;
+}
+
+.owner-sidebar .owner-add-link:hover {
+  background: linear-gradient(110deg, #bfdbfe, #dbeafe) !important;
+  border-color: #93c5fd !important;
+}
+
+/* PROFILE TYPOGRAPHY */
+.owner-sidebar .owner-profile strong {
+  font-family: 'Manrope', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  color: #172554 !important;
+}
+
+.owner-sidebar .owner-profile span {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  color: #64748b !important;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .owner-sidebar .owner-brand {
+    font-size: 26px !important;
+    margin-bottom: 15px !important;
+  }
+
+  .owner-sidebar .owner-nav {
+    min-height: 39px;
+    padding: 9px 10px !important;
+    gap: 6px !important;
+    font-size: 10px !important;
+    letter-spacing: 0 !important;
+  }
+
+  .owner-sidebar .owner-nav-icon {
+    width: auto !important;
+    font-size: 15px !important;
+  }
+}
+/* ===== LUXURY HOTEL OWNER PROFILE ===== */
+
+.owner-sidebar-bottom {
+  margin-top: auto !important;
+  padding: 20px 12px 12px !important;
+  border-top: 1px solid #e8e5e1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 13px !important;
+}
+
+/* Owner profile card */
+.owner-sidebar-bottom .owner-profile {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 13px !important;
+  padding: 15px 13px !important;
+  background: linear-gradient(145deg, #ffffff, #faf8f5) !important;
+  border: 1px solid #e8e1d8 !important;
+  border-radius: 15px !important;
+  box-shadow: 0 5px 18px rgba(45, 35, 25, 0.06) !important;
+}
+
+.owner-sidebar-bottom .owner-avatar {
+  width: 46px !important;
+  height: 46px !important;
+  min-width: 46px !important;
+  border-radius: 13px !important;
+  background: linear-gradient(145deg, #263b53, #405c78) !important;
+  color: #fff !important;
+  border: 2px solid #e8dfd2 !important;
+  font-size: 17px !important;
+  font-weight: 800 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.owner-sidebar-bottom .owner-profile strong {
+  display: block !important;
+  color: #252b32 !important;
+  font-family: "Manrope", sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.2px !important;
+}
+
+.owner-sidebar-bottom .owner-profile small {
+  display: block !important;
+  margin-top: 5px !important;
+  color: #928678 !important;
+  font-family: "DM Sans", sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.1px !important;
+  text-transform: uppercase !important;
+}
+
+/* ===== PREMIUM BURGUNDY LOGOUT ===== */
+
+.owner-sidebar-bottom .owner-logout-full {
+  width: 100% !important;
+  min-height: 48px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+
+  background: linear-gradient(135deg, #782b35, #541923) !important;
+  color: #fff !important;
+  border: 1px solid #8c4650 !important;
+  border-radius: 13px !important;
+
+  font-family: "Manrope", sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 1.2px !important;
+  text-transform: uppercase !important;
+
+  box-shadow: 0 5px 14px rgba(84, 25, 35, 0.18) !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+.owner-sidebar-bottom .owner-logout-full:hover {
+  background: linear-gradient(135deg, #963b46, #6d202c) !important;
+  border-color: #a65c65 !important;
+  box-shadow: 0 8px 20px rgba(84, 25, 35, 0.26) !important;
+  transform: translateY(-2px) !important;
+}
+
+.owner-sidebar-bottom .owner-logout-full:active {
+  transform: scale(0.98) !important;
+}
+
+@media (max-width: 850px) {
+  .owner-sidebar-bottom {
+    padding: 12px !important;
+  }
+}
+/* ===== OWNER PROFILE - PREMIUM DESIGN ===== */
+
+.owner-sidebar-bottom {
+  margin-top: auto !important;
+  padding: 18px 12px 12px !important;
+  border-top: 1px solid #e2eaf5 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+.owner-sidebar-bottom .owner-profile {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 14px !important;
+  background: #f5f9ff !important;
+  border: 1px solid #dce8f8 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 3px 12px rgba(30, 64, 175, 0.05) !important;
+  transition: all 0.25s ease !important;
+}
+
+.owner-sidebar-bottom .owner-profile:hover {
+  background: #edf5ff !important;
+  border-color: #bfd5f5 !important;
+}
+
+.owner-sidebar-bottom .owner-avatar {
+  width: 46px !important;
+  height: 46px !important;
+  min-width: 46px !important;
+  border-radius: 14px !important;
+  background: linear-gradient(145deg, #2563eb, #1e40af) !important;
+  color: #ffffff !important;
+  border: 3px solid #ffffff !important;
+  box-shadow: 0 3px 9px rgba(37, 99, 235, 0.2) !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.owner-sidebar-bottom .owner-profile strong {
+  display: block !important;
+  color: #172554 !important;
+  font-family: "Manrope", sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.3px !important;
+  line-height: 1.4 !important;
+}
+
+.owner-sidebar-bottom .owner-profile small {
+  display: block !important;
+  margin-top: 4px !important;
+  color: #64748b !important;
+  font-family: "DM Sans", sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+}
+
+/* ===== LOGOUT BUTTON - CLEAN PREMIUM RED ===== */
+
+.owner-sidebar-bottom .owner-logout-full {
+  width: 100% !important;
+  min-height: 46px !important;
+  padding: 0 15px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+
+  background: #fff5f5 !important;
+  color: #dc2626 !important;
+  border: 1px solid #fecaca !important;
+  border-radius: 13px !important;
+
+  font-family: "Manrope", sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.2px !important;
+
+  box-shadow: 0 2px 7px rgba(220, 38, 38, 0.05) !important;
+  cursor: pointer !important;
+  transition: all 0.25s ease !important;
+}
+
+.owner-sidebar-bottom .owner-logout-full:hover {
+  background: #dc2626 !important;
+  color: #ffffff !important;
+  border-color: #dc2626 !important;
+  box-shadow: 0 6px 15px rgba(220, 38, 38, 0.2) !important;
+  transform: translateY(-2px) !important;
+}
+
+.owner-sidebar-bottom .owner-logout-full:active {
+  transform: scale(0.98) !important;
+}
+
+@media (max-width: 850px) {
+  .owner-sidebar-bottom {
+    padding: 12px !important;
+  }
+}
+/* ===== PREMIUM LOGOUT BUTTON ===== */
+
+.owner-sidebar-bottom .owner-logout-full {
+  width: 100% !important;
+  min-height: 48px !important;
+  padding: 0 16px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 11px !important;
+
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 55%, #b91c1c 100%) !important;
+  color: #ffffff !important;
+
+  border: 1px solid #dc2626 !important;
+  border-radius: 14px !important;
+
+  font-family: "Manrope", sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.5px !important;
+
+  box-shadow: 0 5px 13px rgba(220, 38, 38, 0.22) !important;
+  cursor: pointer !important;
+  transition: all 0.25s ease !important;
+}
+
+.owner-sidebar-bottom .owner-logout-full:hover {
+  background: linear-gradient(135deg, #dc2626, #991b1b) !important;
+  border-color: #991b1b !important;
+  box-shadow: 0 8px 20px rgba(185, 28, 28, 0.30) !important;
+  transform: translateY(-2px) !important;
+}
+
+.owner-sidebar-bottom .owner-logout-full:active {
+  transform: scale(0.97) !important;
+  box-shadow: 0 2px 7px rgba(185, 28, 28, 0.2) !important;
+}
+/* ===== ROYAL BLUE PREMIUM WELCOME BANNER ===== */
+
+.owner-welcome {
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  padding: 36px 38px !important;
+  min-height: 180px !important;
+
+  background:
+    radial-gradient(circle at 85% 15%, rgba(96, 165, 250, 0.35), transparent 32%),
+    linear-gradient(120deg, #102a56 0%, #1d4ed8 55%, #2563eb 100%) !important;
+
+  border: 1px solid rgba(147, 197, 253, 0.45) !important;
+  border-radius: 22px !important;
+
+  box-shadow: 0 14px 32px rgba(37, 99, 235, 0.20) !important;
+}
+
+/* Decorative blue glow */
+.owner-welcome::before {
+  content: "" !important;
+  position: absolute !important;
+  z-index: -1 !important;
+  width: 230px !important;
+  height: 230px !important;
+  right: -55px !important;
+  top: -115px !important;
+  border: 1px solid rgba(191, 219, 254, 0.35) !important;
+  border-radius: 50% !important;
+  box-shadow:
+    0 0 0 22px rgba(191, 219, 254, 0.07),
+    0 0 0 45px rgba(191, 219, 254, 0.05) !important;
+  pointer-events: none !important;
+}
+
+.owner-welcome::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 18% !important;
+  width: 5px !important;
+  height: 64% !important;
+  border-radius: 0 5px 5px 0 !important;
+  background: linear-gradient(180deg, #93c5fd, #ffffff) !important;
+}
+
+/* Welcome title */
+.owner-welcome h1,
+.owner-welcome h2 {
+  position: relative !important;
+  z-index: 1 !important;
+  color: #ffffff !important;
+  font-family: "Manrope", sans-serif !important;
+  font-size: clamp(25px, 3vw, 35px) !important;
+  font-weight: 900 !important;
+  letter-spacing: -1px !important;
+  line-height: 1.3 !important;
+}
+
+/* Owner name highlight */
+.owner-welcome h1 span,
+.owner-welcome h2 span {
+  color: #bfdbfe !important;
+  font-weight: 900 !important;
+}
+
+/* Subtitle */
+.owner-welcome p {
+  position: relative !important;
+  z-index: 1 !important;
+  color: #dbeafe !important;
+  font-family: "DM Sans", sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  line-height: 1.8 !important;
+}
+
+@media (max-width: 600px) {
+  .owner-welcome {
+    padding: 27px 24px !important;
+    min-height: 150px !important;
+    border-radius: 18px !important;
+  }
+
+  .owner-welcome h1,
+  .owner-welcome h2 {
+    font-size: 24px !important;
+  }
+
+  .owner-welcome p {
+    font-size: 12px !important;
+  }
+}
+/* =========================================
+   ROOMFINDER OWNER DASHBOARD
+   PREMIUM LIGHT BLUE + WHITE HOTEL THEME
+========================================= */
+
+/* MAIN BACKGROUND */
+.owner-layout {
+  background: #f3f8ff !important;
+  color: #172554 !important;
+  font-family: "DM Sans", sans-serif !important;
+}
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.owner-sidebar {
+  background: #ffffff !important;
+  border-right: 1px solid #dce9f9 !important;
+  box-shadow: 5px 0 25px rgba(37, 99, 235, 0.04) !important;
+  padding: 28px 18px !important;
+}
+
+.owner-brand {
+  display: block !important;
+  margin-bottom: 42px !important;
+  color: #172554 !important;
+  font-family: "Manrope", sans-serif !important;
+  font-size: 27px !important;
+  font-weight: 900 !important;
+  letter-spacing: -1.2px !important;
+  text-decoration: none !important;
+}
+
+.owner-brand span {
+  color: #2563eb !important;
+}
+
+.owner-nav-label {
+  color: #94a3b8 !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: 2px !important;
+  margin: 0 0 15px 12px !important;
+}
+
+.owner-nav {
+  min-height: 48px !important;
+  padding: 0 14px !important;
+  margin-bottom: 9px !important;
+  border-radius: 13px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 13px !important;
+  color: #526580 !important;
+  background: transparent !important;
+  font-family: "Manrope", sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 750 !important;
+  text-decoration: none !important;
+  transition: all 0.25s ease !important;
+}
+
+.owner-nav-icon {
+  color: #3b82f6 !important;
+  font-size: 21px !important;
+}
+
+.owner-nav:hover {
+  color: #1d4ed8 !important;
+  background: #eff6ff !important;
+  transform: translateX(3px) !important;
+}
+
+.owner-nav.active {
+  color: #ffffff !important;
+  background: linear-gradient(110deg, #2563eb, #3b82f6) !important;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.20) !important;
+}
+
+.owner-nav.active .owner-nav-icon {
+  color: #ffffff !important;
+}
+
+.owner-nav.owner-add-link {
+  margin-top: 20px !important;
+  color: #1d4ed8 !important;
+  background: #eff6ff !important;
+  border: 1px solid #dbeafe !important;
+  cursor: pointer !important;
+}
+
+.owner-nav.owner-add-link:hover {
+  background: #dbeafe !important;
+}
+
+/* =========================================
+   OWNER PROFILE
+========================================= */
+
+.owner-sidebar-bottom {
+  margin-top: auto !important;
+  padding: 17px 10px !important;
+  border-top: 1px solid #e5edf8 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.owner-avatar {
+  width: 47px !important;
+  height: 47px !important;
+  min-width: 47px !important;
+  border-radius: 15px !important;
+  background: linear-gradient(135deg, #2563eb, #60a5fa) !important;
+  border: 3px solid #dbeafe !important;
+  color: white !important;
+  font-family: "Manrope", sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 900 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15) !important;
+}
+
+.owner-avatar img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.owner-profile {
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 5px !important;
+}
+
+.owner-profile strong {
+  color: #172554 !important;
+  font-family: "Manrope", sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 900 !important;
+  overflow-wrap: anywhere !important;
+}
+
+.owner-profile span {
+  color: #64748b !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* =========================================
+   LOGOUT BUTTON - PREMIUM RED
+========================================= */
+
+.owner-logout-full {
+  width: calc(100% - 20px) !important;
+  min-height: 47px !important;
+  margin: 0 10px !important;
+  border: 1px solid #dc2626 !important;
+  border-radius: 13px !important;
+  background: linear-gradient(120deg, #ef4444, #dc2626) !important;
+  color: #ffffff !important;
+  font-family: "Manrope", sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 850 !important;
+  letter-spacing: 0.5px !important;
+  cursor: pointer !important;
+  box-shadow: 0 5px 13px rgba(220, 38, 38, 0.18) !important;
+  transition: all 0.25s ease !important;
+}
+
+.owner-logout-full:hover {
+  background: linear-gradient(120deg, #dc2626, #991b1b) !important;
+  box-shadow: 0 8px 18px rgba(220, 38, 38, 0.25) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* =========================================
+   MAIN CONTENT AND TOPBAR
+========================================= */
+
+.owner-main {
+  background: #f3f8ff !important;
+  padding: 30px !important;
+}
+
+.owner-topbar {
+  background: #ffffff !important;
+  border: 1px solid #e1ebf8 !important;
+  border-radius: 18px !important;
+  padding: 20px 25px !important;
+  margin-bottom: 25px !important;
+  box-shadow: 0 5px 20px rgba(37, 99, 235, 0.04) !important;
+}
+
+.owner-eyebrow {
+  color: #3b82f6 !important;
+  font-size: 10px !important;
+  font-weight: 850 !important;
+  letter-spacing: 2px !important;
+}
+
+.owner-topbar h1 {
+  color: #172554 !important;
+  font-family: "Manrope", sans-serif !important;
+  font-size: 27px !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.8px !important;
+  margin-top: 5px !important;
+}
+
+.owner-account {
+  padding: 10px 15px !important;
+  background: #eff6ff !important;
+  border: 1px solid #dbeafe !important;
+  border-radius: 30px !important;
+  color: #1d4ed8 !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+}
+
+.owner-online-dot {
+  background: #22c55e !important;
+  box-shadow: 0 0 0 4px #dcfce7 !important;
+}
+
+/* =========================================
+   WELCOME BANNER - LIGHT BLUE HOTEL STYLE
+========================================= */
+
+.owner-welcome {
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  padding: 36px 38px !important;
+  min-height: 180px !important;
+  border: 1px solid #bfdbfe !important;
+  border-radius: 23px !important;
+
+  background:
+    radial-gradient(circle at 90% 15%, rgba(96, 165, 250, 0.24), transparent 30%),
+    linear-gradient(120deg, #ffffff 0%, #eff6ff 55%, #dbeafe 100%) !important;
+
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.09) !important;
+}
+
+.owner-welcome::before {
+  content: "" !important;
+  position: absolute !important;
+  z-index: -1 !important;
+  width: 210px !important;
+  height: 210px !important;
+  right: -55px !important;
+  top: -105px !important;
+  border: 2px solid rgba(59, 130, 246, 0.13) !important;
+  border-radius: 50% !important;
+  box-shadow:
+    0 0 0 20px rgba(59, 130, 246, 0.05),
+    0 0 0 42px rgba(59, 130, 246, 0.04) !important;
+}
+
+.owner-welcome-copy {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.owner-welcome h2 {
+  color: #172554 !important;
+  font-family: "Manrope", sans-serif !important;
+  font-size: clamp(25px, 3vw, 35px) !important;
+  font-weight: 900 !important;
+  letter-spacing: -1.2px !important;
+  line-height: 1.35 !important;
+  margin: 12px 0 8px !important;
+}
+
+.owner-welcome p {
+  color: #526580 !important;
+  font-size: 14px !important;
+  font-weight: 550 !important;
+  line-height: 1.8 !important;
+}
+
+.owner-welcome-art {
+  color: #2563eb !important;
+  background: rgba(255, 255, 255, 0.75) !important;
+  border: 1px solid #bfdbfe !important;
+  border-radius: 25px !important;
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.12) !important;
+}
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+.owner-message {
+  padding: 14px 18px !important;
+  margin: 20px 0 !important;
+  background: #eff6ff !important;
+  border: 1px solid #bfdbfe !important;
+  border-radius: 13px !important;
+  color: #1e40af !important;
+  font-size: 13px !important;
+  font-weight: 650 !important;
+}
+
+/* =========================================
+   STATISTICS CARDS
+========================================= */
+
+.owner-stats {
+  gap: 18px !important;
+  margin: 25px 0 32px !important;
+}
+
+.owner-stat {
+  padding: 23px !important;
+  background: #ffffff !important;
+  border: 1px solid #e0eafa !important;
+  border-radius: 19px !important;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.05) !important;
+  transition: all 0.25s ease !important;
+}
+
+.owner-stat:hover {
+  transform: translateY(-5px) !important;
+  border-color: #bfdbfe !important;
+  box-shadow: 0 12px 25px rgba(37, 99, 235, 0.10) !important;
+}
+
+.owner-stat > span {
+  color: #64748b !important;
+  font-size: 12px !important;
+  font-weight: 750 !important;
+}
+
+.owner-stat > strong {
+  display: block !important;
+  color: #172554 !important;
+  font-family: "Manrope", sans-serif !important;
+  font-size: 30px !important;
+  font-weight: 900 !important;
+  margin: 10px 0 5px !important;
+}
+
+.owner-stat > small {
+  color: #94a3b8 !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+}
+
+.owner-stat-icon {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 21px !important;
+  font-weight: 800 !important;
+}
+
+.owner-stat-icon.purple {
+  color: #2563eb !important;
+  background: #dbeafe !important;
+}
+
+.owner-stat-icon.orange {
+  color: #0284c7 !important;
+  background: #e0f2fe !important;
+}
+
+.owner-stat-icon.blue {
+  color: #1d4ed8 !important;
+  background: #eff6ff !important;
+}
+
+.owner-stat-icon.green {
+  color: #059669 !important;
+  background: #d1fae5 !important;
+}
+
+/* =========================================
+   SECTION HEADINGS
+========================================= */
+
+.owner-section {
+  margin-bottom: 32px !important;
+}
+
+.owner-section-heading {
+  margin-bottom: 20px !important;
+}
+
+.owner-section-heading h2 {
+  color: #172554 !important;
+  font-family: "Manrope", sans-serif !important;
+  font-size: 23px !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.7px !important;
+  margin-top: 7px !important;
+}
+
+.owner-section-heading p {
+  color: #64748b !important;
+  font-size: 13px !important;
+  margin-top: 6px !important;
+}
+
+.owner-count {
+  padding: 9px 14px !important;
+  background: #dbeafe !important;
+  border-radius: 30px !important;
+  color: #1d4ed8 !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+}
+
+/* =========================================
+   PROPERTY CARDS
+========================================= */
+
+.owner-card-grid {
+  gap: 22px !important;
+}
+
+.owner-property-card,
+.owner-booking-card {
+  overflow: hidden !important;
+  background: #ffffff !important;
+  border: 1px solid #e0eafa !important;
+  border-radius: 20px !important;
+  box-shadow: 0 6px 22px rgba(37, 99, 235, 0.055) !important;
+  transition: all 0.28s ease !important;
+}
+
+.owner-property-card:hover,
+.owner-booking-card:hover {
+  transform: translateY(-5px) !important;
+  border-color: #bfdbfe !important;
+  box-shadow: 0 14px 28px rgba(37, 99, 235, 0.11) !important;
+}
+
+.owner-property-image {
+  background: #eaf3ff !important;
+}
+
+.owner-property-image img {
+  width: 100% !important;
+  object-fit: cover !important;
+}
+
+.owner-listing-badge {
+  background: #2563eb !important;
+  color: #ffffff !important;
+  border-radius: 30px !important;
+  padding: 7px 12px !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2) !important;
+}
+
+.owner-property-body {
+  padding: 20px !important;
+}
+
+.owner-property-body h3,
+.owner-booking-card h3 {
+  color: #172554 !important;
+  font-family: "Manrope", sans-serif !important;
+  font-size: 17px !important;
+  font-weight: 850 !important;
+}
+
+.owner-location {
+  color: #2563eb !important;
+  font-size: 12px !important;
+  font-weight: 750 !important;
+  margin-top: 9px !important;
+}
+
+.owner-address {
+  color: #64748b !important;
+  font-size: 12px !important;
+  line-height: 1.6 !important;
+  margin-top: 6px !important;
+}
+
+/* RENT DETAILS */
+
+.owner-rent-list {
+  margin-top: 17px !important;
+  padding: 13px 5px !important;
+  background: #f5f9ff !important;
+  border: 1px solid #e2edfc !important;
+  border-radius: 13px !important;
+  gap: 5px !important;
+}
+
+.owner-rent-list > div {
+  text-align: center !important;
+}
+
+.owner-rent-list span {
+  display: block !important;
+  color: #64748b !important;
+  font-size: 10px !important;
+  font-weight: 750 !important;
+}
+
+.owner-rent-list strong {
+  display: block !important;
+  color: #1d4ed8 !important;
+  font-family: "Manrope", sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  margin-top: 5px !important;
+}
+
+.owner-rent-list small {
+  color: #94a3b8 !important;
+  font-size: 9px !important;
+}
+
+/* =========================================
+   BOOKING CARDS
+========================================= */
+
+.owner-booking-card {
+  padding: 21px !important;
+}
+
+.owner-card-top {
+  margin-bottom: 18px !important;
+}
+
+.owner-detail-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  padding: 12px 0 !important;
+  border-bottom: 1px solid #edf2f9 !important;
+}
+
+.owner-detail-row span {
+  color: #64748b !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+.owner-detail-row strong {
+  color: #172554 !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  text-align: right !important;
+}
+
+.owner-detail-row .owner-rent {
+  color: #2563eb !important;
+  font-size: 14px !important;
+}
+
+/* STATUS BADGES */
+
+.owner-status {
+  padding: 7px 12px !important;
+  border-radius: 30px !important;
+  font-size: 10px !important;
+  font-weight: 850 !important;
+}
+
+.owner-status.pending {
+  background: #fff7ed !important;
+  color: #c2410c !important;
+}
+
+.owner-status.confirmed {
+  background: #dcfce7 !important;
+  color: #15803d !important;
+}
+
+.owner-status.cancelled {
+  background: #fee2e2 !important;
+  color: #dc2626 !important;
+}
+
+/* =========================================
+   ACTION BUTTONS
+========================================= */
+
+.owner-card-actions {
+  display: flex !important;
+  gap: 10px !important;
+  margin-top: 18px !important;
+}
+
+.owner-btn {
+  min-height: 40px !important;
+  padding: 0 15px !important;
+  border-radius: 11px !important;
+  font-family: "Manrope", sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+  transition: all 0.22s ease !important;
+}
+
+.owner-btn-light {
+  background: #eff6ff !important;
+  color: #1d4ed8 !important;
+  border: 1px solid #bfdbfe !important;
+}
+
+.owner-btn-light:hover {
+  background: #dbeafe !important;
+  transform: translateY(-2px) !important;
+}
+
+.owner-btn-dark {
+  background: #1d4ed8 !important;
+  color: #ffffff !important;
+  border: 1px solid #1d4ed8 !important;
+}
+
+.owner-btn-dark:hover {
+  background: #1e40af !important;
+}
+
+.owner-btn-green {
+  background: #059669 !important;
+  color: #ffffff !important;
+  border: 1px solid #059669 !important;
+}
+
+.owner-btn-green:hover {
+  background: #047857 !important;
+  transform: translateY(-2px) !important;
+}
+
+.owner-btn-red {
+  background: #fff1f2 !important;
+  color: #dc2626 !important;
+  border: 1px solid #fecaca !important;
+}
+
+.owner-btn-red:hover {
+  background: #dc2626 !important;
+  color: #ffffff !important;
+  border-color: #dc2626 !important;
+  transform: translateY(-2px) !important;
+}
+
+.owner-btn:disabled {
+  opacity: 0.55 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+/* =========================================
+   EMPTY / LOADING STATES
+========================================= */
+
+.owner-empty {
+  padding: 40px 22px !important;
+  background: #ffffff !important;
+  border: 1px dashed #bfdbfe !important;
+  border-radius: 19px !important;
+  color: #64748b !important;
+  text-align: center !important;
+}
+
+.owner-empty h3 {
+  color: #172554 !important;
+  font-family: "Manrope", sans-serif !important;
+  font-weight: 850 !important;
+}
+
+.owner-empty-icon {
+  color: #2563eb !important;
+  background: #eff6ff !important;
+  border-radius: 17px !important;
+}
+
+.owner-footer {
+  padding: 22px 0 !important;
+  border-top: 1px solid #dbeafe !important;
+  color: #64748b !important;
+  font-size: 12px !important;
+}
+
+.owner-footer a {
+  color: #2563eb !important;
+  font-weight: 800 !important;
+  text-decoration: none !important;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+@media (max-width: 850px) {
+  .owner-main {
+    padding: 20px !important;
+  }
+
+  .owner-topbar {
+    padding: 17px !important;
+  }
+
+  .owner-welcome {
+    padding: 27px !important;
+  }
+
+  .owner-stats {
+    gap: 13px !important;
+  }
+
+  .owner-sidebar-bottom {
+    padding: 12px 8px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .owner-main {
+    padding: 14px !important;
+  }
+
+  .owner-topbar {
+    padding: 15px !important;
+    border-radius: 14px !important;
+  }
+
+  .owner-topbar h1 {
+    font-size: 22px !important;
+  }
+
+  .owner-account {
+    padding: 8px 10px !important;
+    font-size: 10px !important;
+  }
+
+  .owner-welcome {
+    min-height: 150px !important;
+    padding: 24px 21px !important;
+    border-radius: 17px !important;
+  }
+
+  .owner-welcome h2 {
+    font-size: 23px !important;
+  }
+
+  .owner-welcome p {
+    font-size: 12px !important;
+  }
+
+  .owner-welcome-art {
+    font-size: 30px !important;
+  }
+
+  .owner-stats {
+    gap: 11px !important;
+  }
+
+  .owner-stat {
+    padding: 15px !important;
+    border-radius: 15px !important;
+  }
+
+  .owner-stat > strong {
+    font-size: 24px !important;
+  }
+
+  .owner-section-heading h2 {
+    font-size: 19px !important;
+  }
+
+  .owner-property-card,
+  .owner-booking-card {
+    border-radius: 16px !important;
+  }
+
+  .owner-property-body,
+  .owner-booking-card {
+    padding: 16px !important;
+  }
+
+  .owner-card-actions {
+    flex-wrap: wrap !important;
+  }
+
+  .owner-card-actions .owner-btn {
+    flex: 1 !important;
+  }
+}
+
+/* YOUR LISTINGS - Premium Heading */
+
+.owner-section-heading {
+  margin-bottom: 24px;
+}
+
+.owner-section-heading h2 {
+  color: #16345c;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.owner-section-heading p {
+  color: #71839b;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ==================================
+   PROPERTY CARD - PREMIUM TYPOGRAPHY
+================================== */
+
+/* Property name */
+.owner-property-body h3 {
+  color: #17365f;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+/* City / location */
+.owner-property-body .owner-location {
+  color: #2878d5;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  margin-bottom: 9px;
+}
+
+/* Full address */
+.owner-property-body .owner-address {
+  color: #74849a;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+/* Rent box */
+.owner-property-body .owner-rent-list {
+  background: linear-gradient(135deg, #eaf3ff, #f5f9ff);
+  border: 1px solid #d9e9ff;
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.owner-property-body .owner-rent-list strong {
+  color: #1263c4;
+  font-size: 23px;
+  font-weight: 850;
+}
+
+.owner-property-body .owner-rent-list span {
+  color: #607894;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+/* Buttons */
+.owner-property-body .owner-card-actions .owner-btn {
+  min-height: 44px;
+  border-radius: 11px;
+  font-size: 13px;
+  font-weight: 750;
+  letter-spacing: 0.2px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* Edit button */
+.owner-property-body .owner-card-actions .owner-btn-light {
+  background: linear-gradient(135deg, #287de0, #155fc0);
+  color: #ffffff;
+  box-shadow: 0 5px 12px rgba(34, 112, 207, 0.18);
+}
+
+.owner-property-body .owner-card-actions .owner-btn-light:hover {
+  background: linear-gradient(135deg, #1766c5, #104e9f);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(34, 112, 207, 0.25);
+}
+
+/* Delete button */
+.owner-property-body .owner-card-actions .owner-btn-red {
+  background: #fff0f0;
+  color: #d93645;
+  border: 1px solid #ffdada;
+}
+
+.owner-property-body .owner-card-actions .owner-btn-red:hover {
+  background: #d93645;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(217, 54, 69, 0.18);
+}
+
+/* PREMIUM EDIT & DELETE BUTTONS */
+
+.owner-property-body .owner-card-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* EDIT BUTTON */
+.owner-property-body .owner-card-actions .owner-btn-light {
+  background: linear-gradient(135deg, #3989f5, #1762c4) !important;
+  color: #ffffff !important;
+  border: 1px solid #2878df !important;
+  border-radius: 12px !important;
+  padding: 12px 18px;
+  font-size: 13px;
+  font-weight: 750;
+  box-shadow: 0 5px 13px rgba(35, 112, 210, 0.22);
+  transition: all 0.25s ease;
+}
+
+.owner-property-body .owner-card-actions .owner-btn-light:hover {
+  background: linear-gradient(135deg, #176bd2, #104d9e) !important;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(35, 112, 210, 0.30);
+}
+
+/* DELETE BUTTON */
+.owner-property-body .owner-card-actions .owner-btn-red {
+  background: linear-gradient(135deg, #fff1f1, #ffe3e5) !important;
+  color: #d83245 !important;
+  border: 1px solid #ffcbd1 !important;
+  border-radius: 12px !important;
+  padding: 12px 18px;
+  font-size: 13px;
+  font-weight: 750;
+  box-shadow: 0 4px 11px rgba(220, 55, 75, 0.10);
+  transition: all 0.25s ease;
+}
+
+.owner-property-body .owner-card-actions .owner-btn-red:hover {
+  background: linear-gradient(135deg, #ed5364, #c9253b) !important;
+  color: #ffffff !important;
+  border-color: #d93649 !important;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 17px rgba(220, 55, 75, 0.25);
+}
+
+/* BUTTON CLICK EFFECT */
+.owner-property-body .owner-card-actions .owner-btn:active {
+  transform: scale(0.96);
+}
+
+/* PREMIUM BOOKING REQUESTS HEADING */
+
+.owner-section-heading .owner-eyebrow {
+  display: inline-block;
+  color: #2878d5;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  margin-bottom: 9px;
+}
+
+.owner-section-heading h2 {
+  color: #17365f;
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: -0.6px;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.owner-section-heading p {
+  color: #71839b;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.15px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Responsive heading */
+@media (max-width: 600px) {
+  .owner-section-heading h2 {
+    font-size: 21px;
+  }
+
+  .owner-section-heading p {
+    font-size: 13px;
+  }
+}
+
+/* =====================================
+   PREMIUM BOOKING REQUEST CARDS
+===================================== */
+
+.owner-booking-card {
+  background: #ffffff;
+  border: 1px solid #e2ecf8;
+  border-radius: 20px;
+  padding: 23px;
+  margin-bottom: 20px;
+  box-shadow: 0 5px 22px rgba(35, 75, 130, 0.07);
+  transition: all 0.3s ease;
+}
+
+.owner-booking-card:hover {
+  transform: translateY(-4px);
+  border-color: #c7dcf8;
+  box-shadow: 0 13px 30px rgba(35, 75, 130, 0.12);
+}
+
+/* Card top section */
+.owner-booking-card .owner-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 17px;
+  margin-bottom: 17px;
+  border-bottom: 1px solid #edf2f8;
+}
+
+.owner-booking-card h3,
+.owner-booking-card h4 {
+  color: #17365f;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Booking status badges */
+.owner-booking-card .owner-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 13px;
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+
+.owner-booking-card .owner-status.pending {
+  color: #a86a08;
+  background: #fff6df;
+  border-color: #f8e5b4;
+}
+
+.owner-booking-card .owner-status.confirmed {
+  color: #16804b;
+  background: #e8f8ef;
+  border-color: #c9eed8;
+}
+
+.owner-booking-card .owner-status.cancelled {
+  color: #d13d4b;
+  background: #fff0f1;
+  border-color: #ffd5d9;
+}
+
+/* Customer details */
+.owner-booking-card .owner-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 11px 0;
+  border-bottom: 1px solid #f0f4f9;
+  color: #71839b;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.owner-booking-card .owner-detail-row strong {
+  color: #294767;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: right;
+}
+
+/* Rent highlight */
+.owner-booking-card .owner-rent {
+  color: #1768c8;
+  font-size: 20px;
+  font-weight: 850;
+  background: #edf5ff;
+  border: 1px solid #dceaff;
+  border-radius: 12px;
+  padding: 13px 15px;
+  margin-top: 16px;
+}
+
+/* Booking action buttons */
+.owner-booking-card .owner-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 11px;
+  margin-top: 19px;
+}
+
+.owner-booking-card .owner-btn {
+  min-height: 42px;
+  padding: 10px 17px;
+  border-radius: 11px;
+  font-size: 12px;
+  font-weight: 750;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+/* Confirm / Green button */
+.owner-booking-card .owner-btn-green {
+  background: linear-gradient(135deg, #20a66a, #12834f);
+  color: #ffffff;
+  border: 1px solid #168d59;
+  box-shadow: 0 4px 12px rgba(22, 141, 89, 0.18);
+}
+
+.owner-booking-card .owner-btn-green:hover {
+  background: linear-gradient(135deg, #168d59, #0d7043);
+  transform: translateY(-2px);
+  box-shadow: 0 7px 16px rgba(22, 141, 89, 0.25);
+}
+
+/* Cancel / Red button */
+.owner-booking-card .owner-btn-red {
+  background: #fff0f1;
+  color: #d93649;
+  border: 1px solid #ffd1d6;
+}
+
+.owner-booking-card .owner-btn-red:hover {
+  background: #d93649;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Light button */
+.owner-booking-card .owner-btn-light {
+  background: #edf5ff;
+  color: #1762c4;
+  border: 1px solid #d7e7fc;
+}
+
+.owner-booking-card .owner-btn-light:hover {
+  background: #dceaff;
+  transform: translateY(-2px);
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .owner-booking-card {
+    padding: 17px;
+    border-radius: 16px;
+  }
+
+  .owner-booking-card .owner-card-top {
+    align-items: flex-start;
+  }
+
+  .owner-booking-card .owner-detail-row {
+    font-size: 12px;
+  }
+
+  .owner-booking-card .owner-detail-row strong {
+    font-size: 12px;
+  }
+
+  .owner-booking-card .owner-card-actions .owner-btn {
+    flex: 1;
+  }
+}
+
+/* =========================================
+   ROOMFINDER - PREMIUM FOOTER DESIGN
+========================================= */
+
+.owner-footer {
+  width: 100%;
+  margin-top: 45px;
+  padding: 28px 30px;
+
+  background: linear-gradient(135deg, #102d50 0%, #174d82 55%, #2169a8 100%);
+  border: 1px solid #347bb8;
+  border-radius: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 18px;
+
+  color: #dcecff;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.8;
+
+  box-shadow: 0 10px 28px rgba(17, 57, 99, 0.18);
+}
+
+/* Footer all text */
+.owner-footer p,
+.owner-footer span {
+  color: #dcecff;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.25px;
+  margin: 0;
+}
+
+/* Brand name */
+.owner-footer strong {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 850;
+  letter-spacing: 0.5px;
+}
+
+/* Footer links */
+.owner-footer a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px 15px;
+  margin: 3px;
+
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  border-radius: 9px;
+
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.owner-footer a:hover {
+  color: #12365e;
+  background: #ffffff;
+  border-color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.15);
+}
+
+/* Footer buttons, if present */
+.owner-footer button {
+  padding: 9px 17px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #398df0, #1766c3);
+  border: 1px solid #78b5ff;
+  border-radius: 9px;
+
+  font-size: 12px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.owner-footer button:hover {
+  color: #164477;
+  background: #ffffff;
+  border-color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .owner-footer {
+    padding: 22px 18px;
+    margin-top: 28px;
+    border-radius: 14px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .owner-footer p,
+  .owner-footer span {
+    font-size: 12px;
+  }
+
+  .owner-footer a,
+  .owner-footer button {
+    margin-top: 5px;
+  }
+}
+
+/* BACK TO HOME BUTTON */
+.owner-footer .back-to-home,
+.owner-footer a[href="/"] {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  padding: 11px 22px !important;
+  background: linear-gradient(135deg, #ffffff, #e6f1ff) !important;
+  color: #1559a5 !important;
+
+  border: 2px solid #ffffff !important;
+  border-radius: 11px !important;
+
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  text-decoration: none !important;
+
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.16);
+  transition: all 0.25s ease;
+}
+
+.owner-footer .back-to-home:hover,
+.owner-footer a[href="/"]:hover {
+  background: #1768c8 !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+}
+
+/* =====================================
+   PREMIUM WELCOME BANNER TYPOGRAPHY
+===================================== */
+
+.owner-welcome {
+  background: linear-gradient(120deg, #eaf4ff 0%, #f7fbff 55%, #ffffff 100%);
+  border: 1px solid #d8e9fc;
+  border-radius: 22px;
+  padding: 34px 36px;
+  box-shadow: 0 8px 25px rgba(35, 90, 150, 0.08);
+}
+
+/* YOUR SPACE, YOUR BUSINESS */
+.owner-welcome-copy .owner-eyebrow {
+  display: inline-block;
+  color: #2878d5;
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 2.3px;
+  text-transform: uppercase;
+  margin-bottom: 13px;
+}
+
+/* Welcome heading */
+.owner-welcome-copy h2 {
+  color: #15365f;
+  font-size: 31px;
+  font-weight: 850;
+  letter-spacing: -0.8px;
+  line-height: 1.25;
+  margin: 0 0 12px;
+}
+
+/* Description */
+.owner-welcome-copy p {
+  color: #607995;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.15px;
+  line-height: 1.8;
+  max-width: 540px;
+  margin: 0;
+}
+
+/* Decorative icon */
+.owner-welcome-art {
+  color: #2878d5;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #d5e7fc;
+  border-radius: 22px;
+  box-shadow: 0 8px 20px rgba(35, 90, 150, 0.10);
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .owner-welcome {
+    padding: 24px 20px;
+    border-radius: 17px;
+  }
+
+  .owner-welcome-copy h2 {
+    font-size: 24px;
+  }
+
+  .owner-welcome-copy p {
+    font-size: 13px;
+  }
+
+  .owner-welcome-copy .owner-eyebrow {
+    font-size: 10px;
+    letter-spacing: 1.8px;
+  }
+}

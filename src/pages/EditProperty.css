@@ -1,0 +1,256 @@
+
+/* =====================================
+   EDIT PROPERTY - PREMIUM DESIGN
+===================================== */
+
+.add-property-page {
+  min-height: 100vh;
+  padding: 48px 20px;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at top left, #e4f2ff 0, transparent 35%),
+    linear-gradient(135deg, #f4f9ff, #edf5ff);
+  font-family: "Inter", "Segoe UI", sans-serif;
+  color: #263b50;
+}
+
+/* Main Form Card */
+.add-property-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 42px 46px;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid #e3edf8;
+  border-radius: 22px;
+  box-shadow:
+    0 18px 55px rgba(42, 91, 139, 0.09),
+    0 3px 10px rgba(42, 91, 139, 0.03);
+}
+
+/* Back Button */
+.add-property-container > .btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 17px;
+  border: 1px solid #d5e6f8;
+  border-radius: 11px;
+  background: #f7fbff;
+  color: #3475ad;
+  font-size: 14px;
+  font-weight: 650;
+  transition: all 0.25s ease;
+}
+
+.add-property-container > .btn-outline:hover {
+  background: #eaf4ff;
+  border-color: #a9cdef;
+  transform: translateY(-2px);
+}
+
+/* Heading */
+.add-property-container h1 {
+  margin: 28px 0 9px;
+  color: #183e63;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.add-property-container > p {
+  margin: 0 0 30px;
+  color: #8294a8;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* Status Message */
+.add-property-container p[role="status"] {
+  padding: 13px 16px;
+  margin: 18px 0;
+  border: 1px solid #cfe3f8;
+  border-radius: 11px;
+  background: #f0f7ff;
+  color: #28669e;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Form Layout */
+.add-property-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 24px;
+  row-gap: 13px;
+}
+
+/* Labels */
+.add-property-form label {
+  align-self: end;
+  margin-top: 9px;
+  color: #344e68;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+}
+
+/* Inputs */
+.add-property-form input,
+.add-property-form select,
+.add-property-form textarea {
+  width: 100%;
+  min-height: 49px;
+  padding: 13px 15px;
+  box-sizing: border-box;
+  border: 1px solid #dce8f5;
+  border-radius: 11px;
+  outline: none;
+  background: #f9fcff;
+  color: #29445e;
+  font-family: inherit;
+  font-size: 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.add-property-form input::placeholder,
+.add-property-form textarea::placeholder {
+  color: #a3b1c0;
+}
+
+.add-property-form input:hover,
+.add-property-form select:hover,
+.add-property-form textarea:hover {
+  border-color: #b9d5ef;
+  background: #ffffff;
+}
+
+.add-property-form input:focus,
+.add-property-form select:focus,
+.add-property-form textarea:focus {
+  border-color: #76aee0;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(78, 147, 207, 0.12);
+}
+
+/* Description Full Width */
+.add-property-form textarea {
+  grid-column: 1 / -1;
+  min-height: 125px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+/* Select */
+.add-property-form select {
+  cursor: pointer;
+}
+
+/* Update Button */
+.add-property-form .btn-primary {
+  grid-column: 1 / -1;
+  width: 100%;
+  min-height: 53px;
+  margin-top: 19px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(110deg, #347fbd, #2469a8);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 750;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(48, 119, 181, 0.20);
+  transition: all 0.25s ease;
+}
+
+.add-property-form .btn-primary:hover {
+  background: linear-gradient(110deg, #286fae, #195b98);
+  box-shadow: 0 11px 24px rgba(48, 119, 181, 0.25);
+  transform: translateY(-2px);
+}
+
+.add-property-form .btn-primary:active {
+  transform: translateY(0);
+}
+
+.add-property-form .btn-primary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Loading State */
+.add-property-page:has(.add-property-container:not(*)) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3475ad;
+}
+
+/* Mobile Responsive */
+@media (max-width: 650px) {
+  .add-property-page {
+    padding: 22px 12px;
+  }
+
+  .add-property-container {
+    padding: 25px 19px;
+    border-radius: 17px;
+  }
+
+  .add-property-container h1 {
+    font-size: 27px;
+    margin-top: 23px;
+  }
+
+  .add-property-form {
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+  }
+
+  .add-property-form textarea,
+  .add-property-form .btn-primary {
+    grid-column: 1;
+  }
+}
+
+/* Premium Back to Dashboard Button */
+.add-property-container > button.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 12px 19px;
+  border: 1px solid #b9d8f5;
+  border-radius: 11px;
+  background: linear-gradient(135deg, #eaf5ff, #dceeff);
+  color: #24669f;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(48, 119, 181, 0.10);
+  transition: all 0.25s ease;
+}
+
+.add-property-container > button.btn-outline:hover {
+  background: linear-gradient(135deg, #d9edff, #c8e3ff);
+  border-color: #8bbce9;
+  color: #174f83;
+  box-shadow: 0 6px 16px rgba(48, 119, 181, 0.16);
+  transform: translateY(-2px);
+}
+.add-property-container > button.btn-outline {
+  background: #eaf5ff;
+  color: #ffffff;
+  border: 1px solid #cfe5fa;
+  box-shadow: 0 3px 10px rgba(52, 120, 181, 0.08);
+}
+
+.add-property-container > button.btn-outline:hover {
+  background: #dceeff;
+  color: #ffffff;
+  border-color: #b5d7f5;
+}

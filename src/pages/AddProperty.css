@@ -1,0 +1,554 @@
+
+/* =========================================
+   LIST PROPERTY - PREMIUM BLUE THEME
+========================================= */
+
+.add-property-page {
+  min-height: 100vh;
+  padding-bottom: 60px;
+  background: linear-gradient(135deg, #edf5ff, #f7faff, #e4efff);
+  font-family: Arial, sans-serif;
+  color: #263b55;
+}
+
+/* HEADER */
+.add-property-header {
+  width: 100%;
+  min-height: 76px;
+  padding: 0 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border-bottom: 1px solid #dce8f5;
+  box-shadow: 0 3px 18px rgba(30, 64, 100, 0.06);
+}
+
+.add-property-logo {
+  color: #173e70;
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: -0.7px;
+  text-decoration: none;
+}
+
+.back-home {
+  padding: 10px 17px;
+  color: #24558a;
+  background: #f1f7ff;
+  border: 1px solid #cbdff2;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.back-home:hover {
+  color: #ffffff;
+  background: #24558a;
+  border-color: #24558a;
+  transform: translateY(-2px);
+}
+
+/* MAIN CONTAINER */
+.add-property-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 45px auto;
+  padding: 0 22px;
+}
+
+/* PAGE HEADING */
+.add-property-heading {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.form-badge {
+  display: inline-block;
+  padding: 8px 16px;
+  margin-bottom: 14px;
+  color: #24558a;
+  background: #e6f1ff;
+  border: 1px solid #cbdff2;
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+}
+
+.add-property-heading h1 {
+  margin: 0 0 12px;
+  color: #173e70;
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.add-property-heading p {
+  margin: 0;
+  color: #71859e;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* FORM CARD */
+.property-form {
+  padding: 36px;
+  background: #ffffff;
+  border: 1px solid #dce8f5;
+  border-radius: 20px;
+  box-shadow: 0 18px 50px rgba(30, 64, 100, 0.09);
+}
+
+/* FORM SECTIONS */
+.form-section {
+  margin-bottom: 30px;
+  padding: 26px;
+  background: #f8fbff;
+  border: 1px solid #e0ebf8;
+  border-radius: 15px;
+}
+
+.form-section h2 {
+  margin: 0 0 23px;
+  padding-bottom: 14px;
+  color: #214d7d;
+  border-bottom: 1px solid #dce8f5;
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.upload-help {
+  margin: -10px 0 20px;
+  color: #71859e;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* GRID */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.rent-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* FORM GROUP */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  margin-bottom: 20px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-group label {
+  margin-bottom: 9px;
+  color: #315b87;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+/* INPUTS */
+.form-group input:not([type="file"]),
+.form-group textarea {
+  width: 100%;
+  padding: 14px 15px;
+  color: #233d5b;
+  background: #f5f9ff;
+  border: 1.5px solid #d3e2f3;
+  border-radius: 10px;
+  outline: none;
+  font-family: inherit;
+  font-size: 14px;
+  transition: all 0.25s ease;
+}
+
+.form-group input:not([type="file"]) {
+  min-height: 49px;
+}
+
+.form-group textarea {
+  min-height: 115px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #91a6bf;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  background: #ffffff;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.14);
+}
+
+/* FILE INPUT */
+.form-group input[type="file"] {
+  width: 100%;
+  padding: 13px;
+  color: #58718e;
+  background: #f5f9ff;
+  border: 1.5px dashed #a9c8eb;
+  border-radius: 11px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.form-group input[type="file"]:hover {
+  background: #edf5ff;
+  border-color: #4b83bd;
+}
+
+.form-group input[type="file"]::file-selector-button {
+  padding: 9px 14px;
+  margin-right: 12px;
+  color: #ffffff;
+  background: #315f91;
+  border: none;
+  border-radius: 7px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.form-group input[type="file"]::file-selector-button:hover {
+  background: #173e70;
+}
+
+/* OWNER PHOTO PREVIEW */
+.photo-preview {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+  padding: 13px;
+  background: #f8fbff;
+  border: 1px solid #dce8f5;
+  border-radius: 11px;
+}
+
+.photo-preview img {
+  width: 65px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 9px;
+  border: 1px solid #dce8f5;
+}
+
+.photo-preview span {
+  flex: 1;
+  min-width: 100px;
+  color: #526b86;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.photo-preview button {
+  padding: 8px 13px;
+  color: #b4233c;
+  background: #fff1f3;
+  border: 1px solid #f0d0d7;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.photo-preview button:hover {
+  color: #ffffff;
+  background: #b4233c;
+}
+
+/* PG PHOTO GRID */
+.selected-photos {
+  margin-top: 22px;
+}
+
+.selected-photos h3 {
+  margin: 0 0 15px;
+  color: #214d7d;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.photo-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.pg-photo-preview {
+  position: relative;
+  height: 125px;
+  overflow: hidden;
+  background: #eaf2fb;
+  border: 1px solid #d3e2f3;
+  border-radius: 11px;
+}
+
+.pg-photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.pg-photo-preview:hover img {
+  transform: scale(1.06);
+}
+
+.pg-photo-preview button {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 27px;
+  height: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: #244e7c;
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 50%;
+  font-size: 19px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.pg-photo-preview button:hover {
+  background: #b4233c;
+}
+
+/* ERROR & SUCCESS */
+.form-message {
+  margin: 18px 0;
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.error-message {
+  color: #a32929;
+  background: #fff0ed;
+  border: 1px solid #f1d0c9;
+}
+
+.success-message {
+  color: #176b45;
+  background: #edf8f0;
+  border: 1px solid #c9e7d1;
+}
+
+/* SUBMIT BUTTON */
+.submit-property-btn {
+  width: 100%;
+  min-height: 54px;
+  margin-top: 8px;
+  padding: 15px 22px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #60a5fa, #24558a);
+  border: 1px solid #60a5fa;
+  border-radius: 11px;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  box-shadow: 0 8px 20px rgba(36, 85, 138, 0.20);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.submit-property-btn:hover {
+  background: linear-gradient(135deg, #3b82f6, #173e70);
+  box-shadow: 0 11px 25px rgba(36, 85, 138, 0.28);
+  transform: translateY(-2px);
+}
+
+.submit-property-btn:active {
+  transform: scale(0.99);
+}
+
+.submit-property-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+  .add-property-header {
+    padding: 0 20px;
+  }
+
+  .add-property-container {
+    margin: 30px auto;
+    padding: 0 15px;
+  }
+
+  .property-form {
+    padding: 20px;
+  }
+
+  .form-section {
+    padding: 19px;
+  }
+
+  .rent-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .photo-preview-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .add-property-heading h1 {
+    font-size: 29px;
+  }
+}
+
+@media (max-width: 480px) {
+  .add-property-header {
+    min-height: 65px;
+  }
+
+  .add-property-logo {
+    font-size: 21px;
+  }
+
+  .back-home {
+    padding: 9px 11px;
+    font-size: 11px;
+  }
+
+  .add-property-heading h1 {
+    font-size: 25px;
+  }
+
+  .add-property-heading p {
+    font-size: 13px;
+  }
+
+  .property-form {
+    padding: 13px;
+    border-radius: 15px;
+  }
+
+  .form-section {
+    padding: 15px;
+  }
+
+  .form-section h2 {
+    font-size: 18px;
+  }
+
+  .form-grid,
+  .rent-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .photo-preview-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pg-photo-preview {
+    height: 115px;
+  }
+}
+/* Soft Light Blue Premium Theme */
+
+.add-property-page {
+  background: #f5faff !important;
+}
+
+.add-property-header {
+  background: #ffffff !important;
+}
+
+.add-property-card {
+  background: #ffffff !important;
+  border: 1px solid #e3efff !important;
+}
+
+.add-property-section {
+  background: #f7fbff !important;
+  border: 1px solid #e6f1ff !important;
+}
+
+.add-property-page input,
+.add-property-page textarea,
+.add-property-page select {
+  background: #fbfdff !important;
+  border: 1px solid #dceaff !important;
+}
+
+.add-property-page input:focus,
+.add-property-page textarea:focus,
+.add-property-page select:focus {
+  border-color: #91bfff !important;
+  box-shadow: 0 0 0 3px rgba(145, 191, 255, 0.15) !important;
+}
+
+.add-property-page button {
+  background: #397fc5 !important;
+}
+/* RoomFinder Header - Soft Blue Premium */
+
+.add-property-header {
+  min-height: 76px;
+  padding: 0 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(120deg, #eaf5ff, #f8fbff, #eaf5ff);
+  border-bottom: 1px solid #dcecff;
+  box-shadow: 0 4px 15px rgba(58, 119, 174, 0.08);
+}
+
+.add-property-header a {
+  color: #285f91;
+  text-decoration: none;
+  font-weight: 650;
+  transition: all 0.25s ease;
+}
+
+.add-property-header a:hover {
+  color: #174b7d;
+}
+
+.add-property-header .logo {
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: -0.7px;
+}
+
+.add-property-header .back-home {
+  padding: 10px 18px;
+  border: 1px solid #cfe4f8;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #326c9f;
+  box-shadow: 0 2px 7px rgba(58, 119, 174, 0.06);
+}
+
+.add-property-header .back-home:hover {
+  background: #e5f2ff;
+  border-color: #a9d0f5;
+  transform: translateY(-2px);
+}
