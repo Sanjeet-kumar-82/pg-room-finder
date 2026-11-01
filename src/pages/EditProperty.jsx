@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-
-const API = "http://localhost:5000/api";
+const API = "https://pg-room-finder-backend.onrender.com/api";
 
 function EditProperty() {
   const { id } = useParams();

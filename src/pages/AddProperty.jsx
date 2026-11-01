@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "./AddProperty.css";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "https://pg-room-finder-backend.onrender.com/api";
 
 export default function AddProperty() {
   const navigate = useNavigate();
