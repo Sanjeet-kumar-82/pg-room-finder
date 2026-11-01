@@ -4010,3 +4010,271 @@ body,
     background-size: cover !important;
   }
 }
+/* ===== Property Owner Section - New Premium Design ===== */
+
+.owner-section {
+  position: relative;
+  width: min(1200px, 92%);
+  margin: 55px auto;
+  padding: 48px 55px;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  background: linear-gradient(120deg, #102a56 0%, #174b85 55%, #2675b9 100%);
+  border: none;
+  border-radius: 22px;
+  box-shadow: 0 16px 38px rgba(16, 42, 86, 0.18);
+}
+
+/* Decorative circles */
+.owner-section::before,
+.owner-section::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.owner-section::before {
+  width: 300px;
+  height: 300px;
+  right: -65px;
+  top: -150px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.owner-section::after {
+  width: 220px;
+  height: 220px;
+  right: 150px;
+  bottom: -155px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.owner-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.owner-heading {
+  color: #ffffff !important;
+  font-size: clamp(30px, 4vw, 43px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -1px;
+  margin: 14px 0;
+  text-shadow: none;
+}
+
+.owner-section p {
+  color: #e5efff !important;
+  font-size: 16px;
+  line-height: 1.7;
+  max-width: 650px;
+  opacity: 1 !important;
+}
+
+.owner-section button {
+  margin-top: 18px;
+  padding: 14px 27px;
+  border: none;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #174b85;
+  font-size: 15px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+}
+
+.owner-section button:hover {
+  background: #e8f2ff;
+  transform: translateY(-3px);
+  box-shadow: 0 9px 20px rgba(0, 0, 0, 0.18);
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .owner-section {
+    width: 92%;
+    margin: 30px auto;
+    padding: 32px 24px;
+    border-radius: 17px;
+  }
+
+  .owner-heading {
+    font-size: 29px;
+  }
+
+  .owner-section p {
+    font-size: 14px;
+  }
+}
+/* =====================================
+   HOME PAGE - MOBILE RESPONSIVE DESIGN
+===================================== */
+
+/* Property grid */
+.home-page .property-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
+  align-items: stretch;
+}
+
+/* Property card */
+.home-page .property-card {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e8edf5;
+  border-radius: 18px;
+  box-shadow: 0 5px 20px rgba(20, 45, 80, 0.07);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.home-page .property-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(20, 45, 80, 0.13);
+}
+
+/* Property image */
+.home-page .property-art,
+.home-page .property-image {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: #edf2f8;
+}
+
+.home-page .property-art img,
+.home-page .property-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.35s ease;
+}
+
+.home-page .property-card:hover .property-art img,
+.home-page .property-card:hover .property-image img {
+  transform: scale(1.04);
+}
+
+/* Property information */
+.home-page .property-info {
+  padding: 18px;
+  min-width: 0;
+}
+
+.home-page .property-title {
+  font-size: 18px;
+  font-weight: 750;
+  line-height: 1.4;
+  color: #172b4d;
+  overflow-wrap: anywhere;
+}
+
+.home-page .property-info p {
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+/* Rent and details button */
+.home-page .property-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.home-page .property-bottom button {
+  min-height: 42px;
+  padding: 10px 17px;
+  border-radius: 9px;
+  white-space: nowrap;
+  font-weight: 700;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .home-page .property-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .home-page .property-art,
+  .home-page .property-image {
+    height: 200px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .home-page {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .home-page .property-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    padding: 0 14px;
+  }
+
+  .home-page .property-card {
+    width: 100%;
+    border-radius: 16px;
+  }
+
+  .home-page .property-art,
+  .home-page .property-image {
+    height: 225px;
+  }
+
+  .home-page .property-info {
+    padding: 16px;
+  }
+
+  .home-page .property-title {
+    font-size: 19px;
+  }
+
+  .home-page .property-bottom {
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .home-page .property-bottom button {
+    padding: 11px 15px;
+    font-size: 13px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+  .home-page .property-grid {
+    padding: 0 10px;
+  }
+
+  .home-page .property-art,
+  .home-page .property-image {
+    height: 195px;
+  }
+
+  .home-page .property-info {
+    padding: 13px;
+  }
+}
