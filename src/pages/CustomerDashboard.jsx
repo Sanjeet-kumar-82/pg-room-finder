@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./CustomerDashboard.css";
 
-const API = "http://localhost:5000/api";
+const API = "https://pg-room-finder-backend.onrender.com/api";
 
 export default function CustomerDashboard() {
   const navigate = useNavigate();
@@ -531,13 +531,13 @@ if (!confirmed) return;
                   property.pgPhotos?.[0] ||
                   property.images?.[0];
 
-                const image = rawImage
-                  ? rawImage.startsWith("http")
-                    ? rawImage
-                    : `http://localhost:5000${
-                        rawImage.startsWith("/") ? "" : "/"
-                      }${rawImage}`
-                  : "";
+            const image = rawImage
+  ? rawImage.startsWith("http")
+    ? rawImage
+    : `https://pg-room-finder-backend.onrender.com${
+        rawImage.startsWith("/") ? "" : "/"
+      }${rawImage}`
+  : "";
 
                 const selectedRoom = roomTypes[property._id] || "Single";
 

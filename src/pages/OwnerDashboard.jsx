@@ -4,8 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./OwnerDashboard.css";
 
-const API = "http://localhost:5000/api";
-const SERVER = "http://localhost:5000";
+const API = "https://pg-room-finder-backend.onrender.com/api";
+const SERVER = "https://pg-room-finder-backend.onrender.com";
 
 function getId(value) {
   if (!value) return "";
@@ -137,10 +137,11 @@ export default function OwnerDashboard() {
       setProperties(ownProperties);
 
       if (data.length > 0 && ownProperties.length === 0) {
-        setMessage(
-       
-        );
-      } else if (data.length === 0) {
+  setMessage("Is account par abhi koi property listed nahi hai.");
+} else if (data.length === 0) {
+  setMessage("");
+}
+      else if (data.length === 0) {
         setMessage("");
       }
     } catch (error) {
