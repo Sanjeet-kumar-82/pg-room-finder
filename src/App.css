@@ -3679,3 +3679,306 @@ body,
   color: #1e40af !important;
   border-color: #93c5fd !important;
 }
+
+/* =========================================
+   ROOMFINDER - MOBILE HOME PAGE IMPROVEMENT
+========================================= */
+
+@media (max-width: 600px) {
+
+  /* Prevent horizontal scrolling */
+  html,
+  body,
+  #root,
+  .app {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* MOBILE NAVBAR */
+  .app .navbar {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: auto;
+    padding: 14px 16px;
+  }
+
+  .app .brand {
+    font-size: 23px;
+  }
+
+  .app .nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    gap: 8px;
+    padding: 5px 0;
+  }
+
+  .app .nav-links a {
+    padding: 9px 13px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .app .nav-actions {
+    display: flex;
+    width: 100%;
+    gap: 9px;
+  }
+
+  .app .nav-actions .btn {
+    flex: 1;
+    min-height: 43px;
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+
+  /* HERO */
+  .app .hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding: 42px 19px 28px;
+    gap: 12px;
+    background-position: center;
+  }
+
+  .app .hero h1 {
+    font-size: clamp(34px, 9vw, 43px);
+    line-height: 1.15;
+    letter-spacing: -1.2px;
+  }
+
+  .app .hero-description {
+    margin-top: 14px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .app .eyebrow {
+    margin-bottom: 15px;
+    font-size: 10px;
+  }
+
+  .app .hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: 23px;
+  }
+
+  .app .hero-stats strong {
+    font-size: 20px;
+  }
+
+  .app .hero-stats span {
+    font-size: 11px;
+  }
+
+  .app .hero-visual {
+    min-height: 190px;
+  }
+
+  /* SEARCH PANEL */
+  .app .search-panel {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: auto;
+    margin: 18px 14px 0;
+    padding: 17px;
+    gap: 13px;
+    border-radius: 17px;
+  }
+
+  .app .search-field label {
+    font-size: 11px;
+  }
+
+  .app .search-field input,
+  .app .search-field select {
+    min-height: 48px;
+    font-size: 14px;
+  }
+
+  .app .search-panel .search-button {
+    width: 100%;
+    min-height: 49px;
+    font-size: 14px;
+  }
+
+  /* SECTION SPACING */
+  .app .section {
+    padding: 43px 16px;
+  }
+
+  .app .section-heading {
+    margin-bottom: 22px;
+  }
+
+  .app .section-heading h2,
+  .app .cities-section h2 {
+    font-size: 25px !important;
+    line-height: 1.3;
+  }
+
+  .app .section-heading p {
+    font-size: 13px !important;
+    line-height: 1.6;
+  }
+
+  /* CITY CARDS - TWO COLUMNS */
+  .app .cities-section {
+    padding: 43px 16px;
+  }
+
+  .app .cities-section .city-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+
+  .app .cities-section .city-card {
+    height: 185px !important;
+    min-height: 185px !important;
+    padding: 12px !important;
+    border-radius: 15px !important;
+  }
+
+  .app .cities-section .city-card .city-name {
+    left: 10px;
+    bottom: 55px;
+    max-width: calc(100% - 20px);
+    padding: 7px 11px;
+    font-size: 15px !important;
+  }
+
+  .app .cities-section .city-card .city-caption {
+    left: 10px;
+    bottom: 10px;
+    padding: 7px 10px !important;
+    font-size: 10px !important;
+  }
+
+  /* PROPERTY CARDS */
+  .app .property-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 18px !important;
+  }
+
+  .app .property-card {
+    width: 100%;
+    min-width: 0;
+    border-radius: 17px !important;
+  }
+
+  .app .property-card img,
+  .app .property-art {
+    width: 100%;
+    height: 220px !important;
+    object-fit: cover !important;
+  }
+
+  .app .property-info {
+    padding: 15px !important;
+  }
+
+  .app .property-info h3 {
+    font-size: 20px !important;
+    line-height: 1.35 !important;
+    min-height: auto !important;
+    margin: 7px 0 12px !important;
+  }
+
+  .app .property-info p,
+  .app .property-card p {
+    font-size: 13px !important;
+  }
+
+  .app .property-bottom {
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+  }
+
+  .app .property-bottom .property-price {
+    padding: 9px 11px !important;
+  }
+
+  .app .property-bottom .property-price strong {
+    font-size: 19px !important;
+  }
+
+  .app .property-bottom button {
+    min-width: 105px !important;
+    min-height: 45px !important;
+    padding: 10px 13px !important;
+    font-size: 13px !important;
+  }
+
+  .app .booking-form > button {
+    width: 100% !important;
+    min-height: 48px !important;
+  }
+
+  /* FEATURE CARDS */
+  .app .feature-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  .app .feature-card {
+    padding: 21px 18px !important;
+    border-radius: 16px !important;
+  }
+
+  /* OWNER CTA */
+  .app .owner-cta {
+    margin: 25px 0 !important;
+    padding: 36px 18px !important;
+    border-radius: 18px !important;
+  }
+
+  .app .owner-cta h2 {
+    font-size: 27px !important;
+    line-height: 1.3;
+  }
+
+  .app .owner-cta p {
+    font-size: 13px !important;
+  }
+
+  /* FOOTER */
+  .app footer {
+    margin-top: 30px !important;
+    padding: 30px 18px 20px !important;
+  }
+
+  /* TOUCH FRIENDLY BUTTONS */
+  .app button,
+  .app .btn,
+  .app a {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* EXTRA SMALL PHONES */
+@media (max-width: 360px) {
+  .app .cities-section .city-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .app .cities-section .city-card {
+    height: 200px !important;
+  }
+
+  .app .hero h1 {
+    font-size: 33px;
+  }
+}

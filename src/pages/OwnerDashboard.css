@@ -3225,3 +3225,24 @@
     letter-spacing: 1.8px;
   }
 }
+/* OWNER DASHBOARD - BIGGER PROPERTY PHOTOS */
+
+.owner-property-image {
+  height: 300px !important;
+  width: 100%;
+  overflow: hidden;
+}
+
+.owner-property-image > img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block;
+}
+
+/* Mobile photo size */
+@media (max-width: 600px) {
+  .owner-property-image {
+    height: 240px !important;
+  }
+}
