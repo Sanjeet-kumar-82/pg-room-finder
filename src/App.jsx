@@ -1,947 +1,841 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
-require("dotenv").config();
+import OwnerAuth from "./pages/OwnerAuth.jsx";
+import CustomerAuth from "./pages/CustomerAuth.jsx";
+import OwnerDashboard from "./pages/OwnerDashboard.jsx";
+import CustomerDashboard from "./pages/CustomerDashboard.jsx";
+import { useEffect, useMemo, useState } from "react";
+import {
+  Routes,
+  Route,
+  Link,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
+import axios from "axios";
+import AddProperty from "./pages/AddProperty.jsx";
+import EditProperty from "./pages/EditProperty";
+import "./App.css";
 
-const Property = require("./Property");
-const User = require("./User");
-const Booking = require("./Booking");
+const API = "https://pg-room-finder-backend.onrender.com/api";
 
-const app = express();
+const cities = [
+  "Delhi",
+  "Noida",
+  "Gurgaon",
+  "Mumbai",
+  "Pune",
+  "Bengaluru",
+];
 
-app.use(cors());
-app.use(express.json());
+function HomePage() {
+  const navigate = useNavigate();
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [search, setSearch] = useState("");
+  const [city, setCity] = useState("All");
+  const [maxRent, setMaxRent] = useState("");
+    const [bookingProperty, setBookingProperty] = useState(null);
+  const [bookingRoomType, setBookingRoomType] = useState("Single");
+  const [bookingPhone, setBookingPhone] = useState("");
+  const [bookingMessage, setBookingMessage] = useState("");
+  const [bookingLoading, setBookingLoading] = useState(false);
 
-const uploadDir = path.join(__dirname, "uploads");
-
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
-
-app.use("/uploads", express.static(uploadDir));
-
-// Authentication middleware
-function authenticateToken(req, res, next) {
-  const authHeader = req.headers.authorization;
-  const token = authHeader?.startsWith("Bearer ")
-    ? authHeader.slice(7)
-    : null;
-
-  if (!token) {
-    return res.status(401).json({
-      message: "Please login first.",
-    });
-  }
-
-  if (!process.env.JWT_SECRET) {
-    return res.status(500).json({
-      message: "JWT_SECRET .env file mein set nahi hai.",
-    });
-  }
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    req.user = {
-      id: decoded.id,
-      role: decoded.role,
-    };
-
-    next();
-  } catch (error) {
-    return res.status(401).json({
-      message: "Session invalid hai. Dobara login karein.",
-    });
-  }
-}
-
-function requireOwner(req, res, next) {
-  if (req.user?.role !== "owner") {
-    return res.status(403).json({
-      message: "Sirf owner ye action kar sakta hai.",
-    });
-  }
-
-  next();
-}
-
-function requireCustomer(req, res, next) {
-  if (req.user?.role !== "customer") {
-    return res.status(403).json({
-      message: "Sirf customer room book kar sakta hai.",
-    });
-  }
-
-  next();
-}
-
-// Image upload configuration
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadDir),
-
-  filename: (req, file, cb) => {
-    const uniqueName =
-      Date.now() +
-      "-" +
-      Math.round(Math.random() * 1e9) +
-      path.extname(file.originalname).toLowerCase();
-
-    cb(null, uniqueName);
-  },
-});
-
-const upload = multer({
-  storage,
-
-  limits: {
-    fileSize: 5 * 1024 * 1024,
-    files: 11,
-  },
-
-  fileFilter: (req, file, cb) => {
-    if (file.mimetype.startsWith("image/")) {
-      cb(null, true);
-    } else {
-      cb(new Error("Sirf image files upload kar sakte hain."));
-    }
-  },
-});
-
-// Test backend
-app.get("/", (req, res) => {
-  res.json({
-    message: "PG & Room Finder Backend is running!",
-  });
-});
-
-// Signup
-app.post("/api/auth/signup", async (req, res) => {
-  try {
-    const { name, email, password, role } = req.body;
-
-    if (
-      typeof name !== "string" ||
-      typeof email !== "string" ||
-      typeof password !== "string" ||
-      !name.trim() ||
-      !email.trim() ||
-      !password
-    ) {
-      return res.status(400).json({
-        message: "Please fill in all fields correctly.",
-      });
-    }
-
-    if (!["owner", "customer"].includes(role)) {
-      return res.status(400).json({
-        message: "Please select Owner or Customer.",
-      });
-    }
-
-    if (password.length < 8) {
-      return res.status(400).json({
-        message: "Password must be at least 8 characters.",
-      });
-    }
-
-    const normalizedEmail = email.trim().toLowerCase();
-
-    const existingUser = await User.findOne({
-      email: normalizedEmail,
-    });
-
-    if (existingUser) {
-      return res.status(409).json({
-        message: "This email is already registered.",
-      });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const user = await User.create({
-      name: name.trim(),
-      email: normalizedEmail,
-      password: hashedPassword,
-      role,
-    });
-
-    const token = jwt.sign(
-      {
-        id: user._id.toString(),
-        role: user.role,
-      },
-      process.env.JWT_SECRET,
-      { expiresIn: "7d" }
-    );
-
-    return res.status(201).json({
-      message: "Signup successful!",
-
-      user: {
-        id: user._id.toString(),
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        token,
-      },
-    });
-  } catch (error) {
-    console.error("Signup error:", error);
-
-    if (error.code === 11000) {
-      return res.status(409).json({
-        message: "This email is already registered.",
-      });
-    }
-
-    return res.status(500).json({
-      message: "Signup failed. Check the backend terminal.",
-    });
-  }
-});
-
-// Login
-app.post("/api/auth/login", async (req, res) => {
-  try {
-    const { email, password, role } = req.body;
-
-    if (
-      typeof email !== "string" ||
-      typeof password !== "string" ||
-      !email.trim() ||
-      !password
-    ) {
-      return res.status(400).json({
-        message: "Email aur password bharna zaroori hai.",
-      });
-    }
-
-    if (!["owner", "customer"].includes(role)) {
-      return res.status(400).json({
-        message: "Owner ya Customer select karein.",
-      });
-    }
-
-    const user = await User.findOne({
-      email: email.trim().toLowerCase(),
-    });
-
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      return res.status(401).json({
-        message: "The email or password is incorrect."
-      });
-    }
-
-    if (user.role !== role) {
-      return res.status(403).json({
-        message: `this account ${
-          user.role === "owner" ? "Owner" : "Customer"
-        }  to the . Please use the correct login page.`,
-      });
-    }
-
-    const token = jwt.sign(
-      {
-        id: user._id.toString(),
-        role: user.role,
-      },
-      process.env.JWT_SECRET,
-      { expiresIn: "7d" }
-    );
-
-    return res.status(200).json({
-      message: "Login successful!",
-
-      user: {
-        id: user._id.toString(),
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        token,
-      },
-    });
-  } catch (error) {
-    console.error("Login error:", error);
-
-    return res.status(500).json({
-      message: "Login failed. Backend terminal check karein.",
-    });
-  }
-});
-
-// Add property: owner only
-app.post(
-  "/api/properties",
-  authenticateToken,
-  requireOwner,
-  upload.fields([
-    { name: "ownerPhoto", maxCount: 1 },
-    { name: "pgPhotos", maxCount: 10 },
-  ]),
-  async (req, res) => {
+  const [savedIds, setSavedIds] = useState(() => {
     try {
-      const {
-        ownerName,
-        ownerPhone,
-        pgName,
-        title,
-        city,
-        address,
-        description,
-        singleRent,
-        doubleRent,
-        tripleRent,
-      } = req.body;
+      return JSON.parse(localStorage.getItem("pgRoomSaved") || "[]");
+    } catch {
+      return [];
+    }
+  });
 
-      if (
-        !ownerName?.trim() ||
-        !ownerPhone?.trim() ||
-        !(pgName || title)?.trim() ||
-        !address?.trim()
-      ) {
-        return res.status(400).json({
-          message:
-            "Owner name, phone, PG name aur address bharna zaroori hai.",
-        });
+  useEffect(() => {
+    async function loadProperties() {
+      try {
+        const response = await axios.get(`${API}/properties`);
+        const data = Array.isArray(response.data)
+          ? response.data
+          : response.data?.properties || [];
+
+        setProperties(data);
+      } catch (err) {
+        console.error(err);
+        setError(
+          "Properties load nahi hui. Backend server check karein."
+        );
+      } finally {
+        setLoading(false);
       }
+    }
 
-      for (const rent of [singleRent, doubleRent, tripleRent]) {
-        if (
-          rent !== undefined &&
-          rent !== "" &&
-          (!Number.isFinite(Number(rent)) || Number(rent) < 0)
-        ) {
-          return res.status(400).json({
-            message: "Rent valid number hona chahiye.",
-          });
-        }
-      }
+    loadProperties();
+  }, []);
 
-      const ownerPhoto = req.files?.ownerPhoto?.[0]
-        ? `/uploads/${req.files.ownerPhoto[0].filename}`
-        : "";
+  const filteredProperties = useMemo(() => {
+    return properties.filter((property) => {
+      const text = [
+        property.title,
+        property.pgName,
+        property.city,
+        property.address,
+        property.roomType,
+        property.description,
+      ]
+        .join(" ")
+        .toLowerCase();
 
-      const pgPhotos = (req.files?.pgPhotos || []).map(
-        (file) => `/uploads/${file.filename}`
+      const matchesSearch = text.includes(
+        search.trim().toLowerCase()
       );
 
-      const property = await Property.create({
-        title: (pgName || title).trim(),
-        city: (city || "").trim(),
-        address: address.trim(),
-        description: (description || "").trim(),
-        ownerName: ownerName.trim(),
-        ownerPhone: ownerPhone.trim(),
-        ownerPhoto,
-        pgPhotos,
-        singleRent: Number(singleRent) || 0,
-        doubleRent: Number(doubleRent) || 0,
-        tripleRent: Number(tripleRent) || 0,
-        ownerId: req.user.id,
-      });
+      const matchesCity =
+        city === "All" ||
+        (property.city || "").toLowerCase() === city.toLowerCase();
 
-      return res.status(201).json({
-        message: "Property saved successfully!",
-        property,
-      });
-    } catch (error) {
-      console.error("Save property error:", error);
+      const rent = Number(
+        property.rent || property.singleRent || 0
+      );
 
-      return res.status(500).json({
-        message: "Could not save property.",
-      });
-    }
-  }
-);
+      const matchesRent = !maxRent || rent <= Number(maxRent);
 
-// Get all properties
-app.get("/api/properties", async (req, res) => {
-  try {
-    const properties = await Property.find().sort({
-      createdAt: -1,
+      return matchesSearch && matchesCity && matchesRent;
     });
+  }, [properties, search, city, maxRent]);
 
-    return res.status(200).json(properties);
-  } catch (error) {
-    console.error("Fetch properties error:", error);
+  function toggleSaved(property) {
+    const id = property._id || property.id || property.title;
 
-    return res.status(500).json({
-      message: "Could not fetch properties.",
+    setSavedIds((previous) => {
+      const next = previous.includes(id)
+        ? previous.filter((savedId) => savedId !== id)
+        : [...previous, id];
+
+      localStorage.setItem("pgRoomSaved", JSON.stringify(next));
+      return next;
     });
   }
-});
-// Get one property for editing
-app.get(
-  "/api/properties/:id",
-  authenticateToken,
-  requireOwner,
-  async (req, res) => {
+    async function handleBookNow(property) {
+    setBookingMessage("");
+
+    let loggedInUser;
+
     try {
-      const { id } = req.params;
-
-      if (!mongoose.isValidObjectId(id)) {
-        return res.status(400).json({
-          message: "Invalid property ID.",
-        });
-      }
-
-      const property = await Property.findOne({
-        _id: id,
-        ownerId: req.user.id,
-      });
-
-      if (!property) {
-        return res.status(404).json({
-          message: "Property nahi mili ya aap iske owner nahi hain.",
-        });
-      }
-
-      return res.status(200).json({ property });
-    } catch (error) {
-      console.error("Load property error:", error);
-
-      return res.status(500).json({
-        message: "Property load nahi ho payi.",
-      });
+      loggedInUser = JSON.parse(
+        localStorage.getItem("pgRoomUser") || "null"
+      );
+    } catch {
+      loggedInUser = null;
     }
+
+    if (!loggedInUser?.token || loggedInUser.role !== "customer") {
+      navigate("/customer-auth");
+      return;
+    }
+
+    if (!/^\d{10}$/.test(bookingPhone.trim())) {
+      setBookingMessage("Please enter a valid 10-digit phone number.");
+      return;
+    }
+
+    const rentMap = {
+      Single: Number(property.singleRent || property.rent || 0),
+      Double: Number(property.doubleRent || 0),
+      Triple: Number(property.tripleRent || 0),
+    };
+
+    if (!rentMap[bookingRoomType]) {
+      setBookingMessage("This room type is not available.");
+      return;
+    }
+
+    try {
+      setBookingLoading(true);
+
+      console.log("Confirm Booking clicked:", property._id);
+console.log("Logged in user:", loggedInUser);
+
+const response = await axios.post(
+  `${API}/bookings`,
+  {
+    propertyId: property._id,
+    roomType: bookingRoomType,
+    customerName: loggedInUser.name,
+    customerPhone: bookingPhone.trim(),
+  },
+  {
+    headers: {
+      Authorization: `Bearer ${loggedInUser.token}`,
+    },
   }
 );
-// Delete owner's property
-app.delete(
-  "/api/properties/:id",
-  authenticateToken,
-  requireOwner,
-  async (req, res) => {
-    try {
-      if (!mongoose.isValidObjectId(req.params.id)) {
-        return res.status(400).json({
-          message: "Invalid property ID.",
-        });
-      }
-
-      const deletedProperty = await Property.findOneAndDelete({
-        _id: req.params.id,
-        ownerId: req.user.id,
-      });
-
-      if (!deletedProperty) {
-        return res.status(404).json({
-          message: "Property nahi mili ya aap iske owner nahi hain.",
-        });
-      }
-
-      return res.status(200).json({
-        message: "Property successfully delete ho gayi.",
-      });
-    } catch (error) {
-      console.error("Delete property error:", error);
-
-      return res.status(500).json({
-        message: "Property delete nahi ho payi.",
-      });
+      setBookingMessage(
+        response.data?.message || "Booking request sent successfully!"
+      );
+      setBookingProperty(null);
+      setBookingPhone("");
+    } catch (err) {
+      setBookingMessage(
+        err.response?.data?.message || "Booking failed. Please try again."
+      );
+    } finally {
+      setBookingLoading(false);
     }
   }
-);
 
-
-/* Owner updates their own property */
-app.put(
-  "/api/properties/:id",
-  authenticateToken,
-  requireOwner,
-  async (req, res) => {
-    try {
-      const { id } = req.params;
-
-      if (!mongoose.isValidObjectId(id)) {
-        return res.status(400).json({
-          message: "Invalid property ID.",
-        });
-      }
-
-      const {
-        title,
-        pgName,
-        city,
-        address,
-        description,
-        roomType,
-        rent,
-        singleRent,
-        doubleRent,
-        tripleRent,
-        ownerName,
-        ownerPhone,
-      } = req.body;
-
-      const property = await Property.findOne({
-        _id: id,
-        ownerId: req.user.id,
-      });
-
-      if (!property) {
-        return res.status(404).json({
-          message: "Property nahi mili ya aap iske owner nahi hain.",
-        });
-      }
-
-      if (city !== undefined && !String(city).trim()) {
-        return res.status(400).json({
-          message: "City bharna zaroori hai.",
-        });
-      }
-
-      const rentFields = {
-        rent,
-        singleRent,
-        doubleRent,
-        tripleRent,
-      };
-
-      for (const [field, value] of Object.entries(rentFields)) {
-        if (
-          value !== undefined &&
-          (!Number.isFinite(Number(value)) || Number(value) < 0)
-        ) {
-          return res.status(400).json({
-            message: `${field} valid number hona chahiye.`,
-          });
-        }
-      }
-
-      if (title !== undefined || pgName !== undefined) {
-        const newTitle = String(pgName ?? title ?? "").trim();
-
-        if (!newTitle) {
-          return res.status(400).json({
-            message: "Property ka naam bharna zaroori hai.",
-          });
-        }
-
-        property.title = newTitle;
-      }
-
-      if (city !== undefined) property.city = String(city).trim();
-      if (address !== undefined) property.address = String(address).trim();
-      if (description !== undefined) {
-        property.description = String(description).trim();
-      }
-      if (ownerName !== undefined) {
-        property.ownerName = String(ownerName).trim();
-      }
-      if (ownerPhone !== undefined) {
-        property.ownerPhone = String(ownerPhone).trim();
-      }
-
-      if (singleRent !== undefined) {
-        property.singleRent = Number(singleRent);
-      }
-      if (doubleRent !== undefined) {
-        property.doubleRent = Number(doubleRent);
-      }
-      if (tripleRent !== undefined) {
-        property.tripleRent = Number(tripleRent);
-      }
-
-      // Purani properties mein rent field bhi ho sakti hai.
-      if (rent !== undefined && property.rent !== undefined) {
-        property.rent = Number(rent);
-      }
-
-      if (roomType !== undefined) {
-        property.roomType = roomType;
-      }
-
-      await property.save();
-
-      return res.status(200).json({
-        message: "Property successfully update ho gayi!",
-        property,
-      });
-    } catch (error) {
-      console.error("Update property error:", error);
-
-      return res.status(500).json({
-        message: "Property update nahi ho payi.",
-      });
-    }
+  function goToSection(id) {
+    document.getElementById(id)?.scrollIntoView({
+      behavior: "smooth",
+    });
   }
-);
 
+  function getPhoto(property) {
+    const photo = property.pgPhotos?.[0]?.url
+      ? property.pgPhotos[0].url
+      : typeof property.pgPhotos?.[0] === "string"
+        ? property.pgPhotos[0]
+        : property.image || "";
 
- // Create room booking: customer only
-app.post(
-  "/api/bookings",
-  authenticateToken,
-  requireCustomer,
-  async (req, res) => {
-    try {
-      const {
-        propertyId,
-        roomType,
-        customerName,
-        customerPhone,
-      } = req.body;
+    if (!photo) return "";
 
-      if (
-        typeof propertyId !== "string" ||
-        typeof customerName !== "string" ||
-        typeof customerPhone !== "string" ||
-        !customerName.trim() ||
-        !customerPhone.trim()
-      ) {
-        return res.status(400).json({
-          message: "Please fill all booking details.",
-        });
-      }
+    if (photo.startsWith("http://") || photo.startsWith("https://")) {
+      return photo;
+    }
 
-      if (!["Single", "Double", "Triple"].includes(roomType)) {
-        return res.status(400).json({
-          message: "Invalid room type.",
-        });
-      }
+    return `http://localhost:5000${
+      photo.startsWith("/") ? "" : "/"
+    }${photo}`;
+  }
 
-      if (!/^[0-9]{10}$/.test(customerPhone.trim())) {
-        return res.status(400).json({
-          message: "Enter a valid 10-digit phone number.",
-        });
-      }
+  return (
+    <div className="app">
+      <header className="navbar">
+        <a
+          className="brand"
+          href="#home"
+          onClick={(event) => {
+            event.preventDefault();
+            goToSection("home");
+          }}
+        >
+          <span className="brand-icon">⌂</span>
+          <span>
+            Room<span className="brand-accent">Finder</span>
+          </span>
+        </a>
 
-      if (!mongoose.isValidObjectId(propertyId)) {
-        return res.status(400).json({
-          message: "Invalid property ID.",
-        });
-      }
+        <nav className="nav-links">
+          <a
+            href="#home"
+            onClick={(event) => {
+              event.preventDefault();
+              goToSection("home");
+            }}
+          >
+            Home
+          </a>
 
-      const property = await Property.findById(propertyId);
+          <a
+            href="#properties"
+            onClick={(event) => {
+              event.preventDefault();
+              goToSection("properties");
+            }}
+          >
+            Find Rooms
+          </a>
 
-      if (!property) {
-        return res.status(404).json({
-          message: "Property not found.",
-        });
-      }
+          <a
+            href="#features"
+            onClick={(event) => {
+              event.preventDefault();
+              goToSection("features");
+            }}
+          >
+            Why Us
+          </a>
+        </nav>
 
-      const rentField = {
-        Single: "singleRent",
-        Double: "doubleRent",
-        Triple: "tripleRent",
-      }[roomType];
+        <div className="nav-actions">
+          <button
+            className="btn btn-outline"
+            onClick={() => navigate("/customer-auth")}
+          >
+            Customer Login
+          </button>
 
-      let monthlyRent = Number(property[rentField]);
+          <button
+            className="btn btn-primary"
+            onClick={() => navigate("/owner-auth")}
+          >
+            Owner Login
+          </button>
+        </div>
+      </header>
 
-// Purani properties ke liye fallback
-if (!Number.isFinite(monthlyRent) || monthlyRent <= 0) {
-  monthlyRent = Number(property.rent);
+      <main>
+        <section className="hero" id="home">
+          <div className="hero-content">
+            <span className="eyebrow">
+              <span className="eyebrow-dot" />
+              YOUR NEXT HOME IS HERE
+            </span>
+
+            <h1>
+              Find a place
+              <br />
+              you can call <span>home.</span>
+            </h1>
+
+            <p className="hero-description">
+              Discover comfortable rooms and PGs that fit your lifestyle
+              and budget. Your next chapter starts here.
+            </p>
+
+            <div className="hero-stats">
+              <div>
+                <strong>{properties.length}+</strong>
+                <span>Listed properties</span>
+              </div>
+
+              <div>
+                <strong>Easy</strong>
+                <span>Room search</span>
+              </div>
+
+              <div>
+                <strong>Simple</strong>
+                <span>To get started</span>
+              </div>
+            </div>
+
+            <button
+              className="btn btn-primary"
+              onClick={() => goToSection("properties")}
+            >
+              Explore Rooms →
+            </button>
+          </div>
+
+          <div className="hero-visual">
+            <div className="hero-orb orb-one" />
+            <div className="hero-orb orb-two" />
+
+            <div className="hero-house">
+              <div className="house-sun" />
+              <div className="house-roof" />
+
+              <div className="house-body">
+                <div className="house-window window-one" />
+                <div className="house-window window-two" />
+                <div className="house-door" />
+              </div>
+
+              <div className="house-ground" />
+            </div>
+
+            <div className="floating-card floating-top">
+              <span className="floating-icon">✓</span>
+              <div>
+                <strong>Find your space</strong>
+                <small>Search made simple</small>
+              </div>
+            </div>
+
+            <div className="floating-card floating-bottom">
+              <span className="floating-star">★</span>
+              <div>
+                <strong>Your next home</strong>
+                <small>Starts right here</small>
+              </div>
+            </div>
+          </div>
+
+          <div className="search-panel">
+            <div className="search-field search-location">
+              <label htmlFor="room-search">
+                LOCATION OR KEYWORD
+              </label>
+
+              <input
+                id="room-search"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                placeholder="City, area or room type"
+              />
+            </div>
+
+            <div className="search-field">
+              <label htmlFor="city-filter">CITY</label>
+
+              <select
+                id="city-filter"
+                value={city}
+                onChange={(event) => setCity(event.target.value)}
+              >
+                <option value="All">All cities</option>
+
+                {cities.map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="search-field">
+              <label htmlFor="budget-filter">
+                MAX RENT / MONTH
+              </label>
+
+              <select
+                id="budget-filter"
+                value={maxRent}
+                onChange={(event) => setMaxRent(event.target.value)}
+              >
+                <option value="">Any budget</option>
+                <option value="5000">Up to ₹5,000</option>
+                <option value="10000">Up to ₹10,000</option>
+                <option value="15000">Up to ₹15,000</option>
+                <option value="25000">Up to ₹25,000</option>
+              </select>
+            </div>
+
+            <button
+              className="btn btn-primary search-button"
+              onClick={() => goToSection("properties")}
+            >
+              Search Rooms →
+            </button>
+          </div>
+        </section>
+
+        <section className="cities-section section" id="cities">
+          <div className="section-heading">
+            <div>
+              <span className="section-kicker">
+                EXPLORE LOCATIONS
+              </span>
+              <h2>Popular cities</h2>
+              <p>Choose a city to explore available spaces.</p>
+            </div>
+          </div>
+
+          <div className="city-grid">
+            {cities.map((item, index) => (
+              <button
+                className={`city-card ${
+                  city === item ? "city-selected" : ""
+                }`}
+                key={item}
+                onClick={() => {
+                  setCity(item);
+                  goToSection("properties");
+                }}
+              >
+                <span className={`city-art city-art-${index + 1}`}>
+                  <span className="city-building building-one" />
+                  <span className="city-building building-two" />
+                  <span className="city-building building-three" />
+                  <span className="city-sun" />
+                </span>
+
+                <span className="city-name">{item}</span>
+                <span className="city-caption">Explore rooms ↗</span>
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="properties-section section"
+          id="properties"
+        >
+          <div className="section-heading">
+            <div>
+              <span className="section-kicker">
+                YOUR SPACE, YOUR CHOICE
+              </span>
+              <h2>Rooms you may love</h2>
+              <p>
+                Find a space that matches your needs and budget.
+              </p>
+            </div>
+
+            <span className="results-count">
+              {filteredProperties.length} properties
+            </span>
+          </div>
+
+          {loading ? (
+            <div className="state-message">
+              Loading properties...
+            </div>
+          ) : error ? (
+            <div className="state-message error-message">
+              {error}
+            </div>
+          ) : filteredProperties.length === 0 ? (
+            <div className="empty-state">
+              <span className="empty-icon">⌂</span>
+              <h3>No properties found</h3>
+              <p>
+                Try another city or budget, or list a new property.
+              </p>
+
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  setSearch("");
+                  setCity("All");
+                  setMaxRent("");
+                }}
+              >
+                Clear filters
+              </button>
+
+              <button
+                className="btn btn-outline"
+                onClick={() => navigate("/add-property")}
+              >
+                + List Property
+              </button>
+            </div>
+          ) : (
+            <div className="property-grid">
+              {filteredProperties.map((property, index) => {
+                const id =
+                  property._id || property.id || property.title;
+                const saved = savedIds.includes(id);
+                const photo = getPhoto(property);
+
+                return (
+                  <article className="property-card" key={id}>
+                    <div
+                      className={`property-art property-art-${
+                        (index % 4) + 1
+                      }`}
+                    >
+                      {photo ? (
+                        <img
+                          src={photo}
+                          alt={property.title || "Room"}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
+                        />
+                      ) : (
+                        <div className="property-illustration">
+                          <div className="illustration-window" />
+                          <div className="illustration-bed">
+                            <span />
+                          </div>
+                          <div className="illustration-plant">♧</div>
+                        </div>
+                      )}
+
+                      <span className="property-tag">
+                        {property.roomType || "Room"}
+                      </span>
+
+                      <button
+                        className={`save-button ${
+                          saved ? "is-saved" : ""
+                        }`}
+                        onClick={() => toggleSaved(property)}
+                        aria-label={
+                          saved
+                            ? "Remove saved property"
+                            : "Save property"
+                        }
+                      >
+                        {saved ? "♥" : "♡"}
+                      </button>
+                    </div>
+
+                    <div className="property-info">
+                      <div className="property-location">
+                        <span>⌖</span>{" "}
+                        {property.city || "Location not specified"}
+                      </div>
+
+                      <h3>
+                        {property.title ||
+                          property.pgName ||
+                          "Room for rent"}
+                      </h3>
+
+                      <p className="property-address">
+                        {property.address ||
+                          "Address available on enquiry"}
+                      </p>
+
+                      {property.description && (
+                        <p className="property-description">
+                          {property.description}
+                        </p>
+                      )}
+
+                      <div className="property-divider" />
+
+                      <div className="property-bottom">
+                        <div className="property-price">
+                          <strong>
+                            ₹
+                            {Number(
+                              property.rent ||
+                                property.singleRent ||
+                                0
+                            ).toLocaleString("en-IN")}
+                          </strong>
+                          <span>/ month</span>
+                        </div>
+
+                        <button
+                          className="btn btn-small btn-outline"
+                          onClick={() => {
+                            const phone =
+                              property.ownerPhone || property.phone;
+
+                            if (phone) {
+                              window.location.href = `tel:${phone}`;
+                            } else {
+                              alert(
+                                "Owner contact details abhi available nahi hain."
+                              );
+                            }
+                          }}
+                        >
+                          Contact
+                        </button>
+                      </div>
+                                            <div className="booking-form">
+                        <button
+                          className="btn btn-primary"
+                          type="button"
+                          onClick={() => {
+                            setBookingMessage("");
+                            setBookingProperty(
+                              bookingProperty === property._id
+                                ? null
+                                : property._id
+                            );
+                          }}
+                        >
+                          {bookingProperty === property._id
+                            ? "Close Booking"
+                            : "Book Now"}
+                        </button>
+
+                        {bookingProperty === property._id && (
+                          <div className="booking-fields">
+                            <label>Room Type</label>
+                            <select
+                              value={bookingRoomType}
+                              onChange={(e) =>
+                                setBookingRoomType(e.target.value)
+                              }
+                            >
+                              <option value="Single" disabled={!Number(property.singleRent || property.rent || 0)}>
+                                Single Sharing
+                              </option>
+                              <option value="Double" disabled={!Number(property.doubleRent || 0)}>
+                                Double Sharing
+                              </option>
+                              <option value="Triple" disabled={!Number(property.tripleRent || 0)}>
+                                Triple Sharing
+                              </option>
+                            </select>
+
+                            <label>Phone Number</label>
+                            <input
+                              type="tel"
+                              maxLength={10}
+                              placeholder="Enter 10-digit phone number"
+                              value={bookingPhone}
+                              onChange={(e) =>
+                                setBookingPhone(
+                                  e.target.value.replace(/\D/g, "").slice(0, 10)
+                                )
+                              }
+                            />
+
+                            {bookingMessage && (
+                              <p role="status">{bookingMessage}</p>
+                            )}
+
+                            <button
+                              className="btn btn-primary"
+                              type="button"
+                              disabled={bookingLoading}
+                              onClick={() => handleBookNow(property)}
+                            >
+                              {bookingLoading
+                                ? "Sending..."
+                                : "Confirm Booking"}
+                            </button>
+                          </div>
+                        )}
+                      </div>
+
+                      {property.ownerName && (
+                        <p className="owner-label">
+                          Listed by {property.ownerName}
+                        </p>
+                      )}
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          )}
+        </section>
+
+        <section
+          className="features-section section"
+          id="features"
+        >
+          <div className="section-heading centered-heading">
+            <div>
+              <span className="section-kicker">
+                WHY ROOMFINDER?
+              </span>
+              <h2>Room hunting, made easier</h2>
+              <p>
+                A simple way to find and list your next space.
+              </p>
+            </div>
+          </div>
+
+          <div className="feature-grid">
+            <article className="feature-card">
+              <span className="feature-icon feature-blue">⌕</span>
+              <h3>Easy to search</h3>
+              <p>
+                Filter rooms by location and monthly rent.
+              </p>
+            </article>
+
+            <article className="feature-card">
+              <span className="feature-icon feature-purple">⌂</span>
+              <h3>Find your space</h3>
+              <p>
+                Explore rooms and PGs in popular cities.
+              </p>
+            </article>
+
+            <article className="feature-card">
+              <span className="feature-icon feature-blue">＋</span>
+              <h3>List your property</h3>
+              <p>
+                Add property details and upload photos.
+              </p>
+
+              <button
+                className="btn btn-primary"
+                onClick={() => navigate("/add-property")}
+              >
+                List Property →
+              </button>
+            </article>
+          </div>
+        </section>
+
+        <section className="owner-section section" id="owner">
+          <div className="owner-heading">
+            <span className="section-kicker">
+              FOR PROPERTY OWNERS
+            </span>
+            <h2>Have a room to rent?</h2>
+            <p>
+              Add your property details and photos on a separate page.
+            </p>
+
+            <button
+              className="btn btn-primary"
+              onClick={() => navigate("/add-property")}
+            >
+              + List Property
+            </button>
+          </div>
+        </section>
+      </main>
+
+      <footer className="footer">
+        <Link to="/" className="brand">
+          <span className="brand-icon">
+            <svg
+              viewBox="0 0 24 24"
+              width="26"
+              height="26"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M3 10.5 12 3l9 7.5" />
+              <path d="M5.5 9.5V21h13V9.5" />
+              <path d="M9 21v-7h6v7" />
+            </svg>
+          </span>
+
+          <span className="brand-name">
+            Room<span className="brand-accent">Finder</span>
+          </span>
+        </Link>
+
+        <p>Find a place you can call home.</p>
+
+        <button
+          className="btn btn-primary"
+          onClick={() => navigate("/add-property")}
+        >
+          List Property
+        </button>
+      </footer>
+    </div>
+  );
 }
 
-if (!Number.isFinite(monthlyRent) || monthlyRent <= 0) {
-  return res.status(400).json({
-    message: "Is room ka rent available nahi hai. Owner se rent update karwayein.",
-  });
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+
+      <Route path="/owner-auth" element={<OwnerAuth />} />
+      <Route path="/owner-login" element={<OwnerAuth mode="login" />} />
+      <Route
+        path="/owner-register"
+        element={<OwnerAuth mode="register" />}
+      />
+
+      <Route path="/customer-auth" element={<CustomerAuth />} />
+      <Route
+        path="/customer-login"
+        element={<CustomerAuth mode="login" />}
+      />
+      <Route
+        path="/customer-register"
+        element={<CustomerAuth mode="register" />}
+      />
+
+      <Route
+        path="/owner-dashboard"
+        element={<OwnerDashboard />}
+      />
+      <Route
+        path="/customer-dashboard"
+        element={<CustomerDashboard />}
+      />
+
+      <Route path="/add-property" element={<AddProperty />} />
+      <Route
+  path="/edit-property/:id"
+  element={<EditProperty />}
+/>
+
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
 }
-
-      const booking = await Booking.create({
-        propertyId: property._id,
-        ownerId: property.ownerId,
-        customerId: req.user.id,
-        customerName: customerName.trim(),
-        customerPhone: customerPhone.trim(),
-        roomType,
-        monthlyRent,
-      });
-
-      return res.status(201).json({
-        message: "Booking request submitted successfully.",
-        booking,
-      });
-    }catch (error) {
-      console.error("BOOKING ERROR:", error);
-
-      return res.status(500).json({
-        message: error.message || "Booking failed.",
-        details: error.errors
-          ? Object.values(error.errors).map((e) => e.message)
-          : null,
-      });
-        }
-  }
-);
-
-
-// Customer views their own bookings
-app.get(
-  "/api/customer/bookings",
-  authenticateToken,
-  requireCustomer,
-  async (req, res) => {
-    try {
-      const bookings = await Booking.find({
-        customerId: req.user.id,
-      })
-        .populate("propertyId", "title city address")
-        .sort({ createdAt: -1 });
-
-      return res.status(200).json(bookings);
-    } catch (error) {
-      console.error("Fetch customer bookings error:", error);
-
-      return res.status(500).json({
-        message: "Could not load your bookings.",
-      });
-    }
-  }
-);
-
-// Owner views bookings for their own properties
-app.get(
-  "/api/owner/bookings",
-  authenticateToken,
-  requireOwner,
-  async (req, res) => {
-    try {
-      const bookings = await Booking.find({
-        ownerId: req.user.id,
-      })
-        .populate("propertyId", "title city address")
-        .sort({ createdAt: -1 });
-
-      return res.status(200).json(bookings);
-    } catch (error) {
-      console.error("Fetch owner bookings error:", error);
-
-      return res.status(500).json({
-        message: "Could not load bookings.",
-      });
-    }
-  }
-);
-
-/* Customer cancels their own booking */
-app.patch(
-  "/api/customer/bookings/:id/cancel",
-  authenticateToken,
-  requireCustomer,
-  async (req, res) => {
-    try {
-      const { id } = req.params;
-
-      if (!mongoose.isValidObjectId(id)) {
-        return res.status(400).json({
-          message: "Invalid booking ID.",
-        });
-      }
-
-      const booking = await Booking.findOneAndUpdate(
-        {
-          _id: id,
-          customerId: req.user.id,
-          status: { $in: ["Pending", "Confirmed"] },
-        },
-        { $set: { status: "Cancelled" } },
-        { new: true, runValidators: true }
-      ).populate("propertyId", "title city address");
-
-      if (!booking) {
-        return res.status(404).json({
-          message: "Booking nahi mili, ya pehle hi cancel ho chuki hai.",
-        });
-      }
-
-      return res.status(200).json({
-        message: "Booking successfully cancel ho gayi.",
-        booking,
-      });
-    } catch (error) {
-      console.error("Cancel customer booking error:", error);
-
-      return res.status(500).json({
-        message: "Booking cancel nahi ho payi.",
-      });
-    }
-  }
-);
-
-/* Customer deletes their own cancelled booking */
-app.delete(
-  "/api/customer/bookings/:id",
-  authenticateToken,
-  requireCustomer,
-  async (req, res) => {
-    try {
-      if (!mongoose.isValidObjectId(req.params.id)) {
-        return res.status(400).json({
-          message: "Invalid booking ID.",
-        });
-      }
-
-      const deletedBooking = await Booking.findOneAndDelete({
-        _id: req.params.id,
-        customerId: req.user.id,
-        status: "Cancelled",
-      });
-
-      if (!deletedBooking) {
-        return res.status(404).json({
-          message:
-            "Cancelled booking nahi mili ya aap iske owner nahi hain.",
-        });
-      }
-
-      return res.status(200).json({
-        message: "Cancelled booking successfully delete ho gayi.",
-      });
-    } catch (error) {
-      console.error("Delete customer booking error:", error);
-
-      return res.status(500).json({
-        message: "Booking delete nahi ho payi.",
-      });
-    }
-  }
-);
-
-/* Owner deletes a confirmed booking */
-app.delete(
-  "/api/owner/bookings/:id",
-  authenticateToken,
-  requireOwner,
-  async (req, res) => {
-    try {
-      if (!mongoose.isValidObjectId(req.params.id)) {
-        return res.status(400).json({
-          message: "Invalid booking ID.",
-        });
-      }
-
-      const deletedBooking = await Booking.findOneAndDelete({
-        _id: req.params.id,
-        ownerId: req.user.id,
-        status: "Confirmed",
-      });
-
-      if (!deletedBooking) {
-        return res.status(404).json({
-          message:
-            "Confirmed booking nahi mili ya aapko ise delete karne ki permission nahi hai.",
-        });
-      }
-
-      return res.status(200).json({
-        message:
-          "Confirmed booking delete ho gayi. Customer ke My Bookings se bhi hat jayegi.",
-      });
-    } catch (error) {
-      console.error("Delete confirmed booking error:", error);
-
-      return res.status(500).json({
-        message: "Booking delete nahi ho payi.",
-      });
-    }
-  }
-);
-
-/* Owner accepts or rejects a booking */
-app.patch(
-  "/api/owner/bookings/:id",
-  authenticateToken,
-  requireOwner,
-  async (req, res) => {
-    try {
-      const { status } = req.body;
-
-      if (!mongoose.isValidObjectId(req.params.id)) {
-        return res.status(400).json({
-          message: "Invalid booking ID.",
-        });
-      }
-
-      if (!["Confirmed", "Cancelled"].includes(status)) {
-        return res.status(400).json({
-          message: "Status must be Confirmed or Cancelled.",
-        });
-      }
-
-      const booking = await Booking.findOneAndUpdate(
-        {
-          _id: req.params.id,
-          ownerId: req.user.id,
-          status: "Pending",
-        },
-        { status },
-        { new: true, runValidators: true }
-      ).populate("propertyId", "title city address");
-
-      if (!booking) {
-        return res.status(404).json({
-          message: "Pending booking not found.",
-        });
-      }
-
-      return res.status(200).json({
-        message:
-          status === "Confirmed"
-            ? "Booking accepted successfully."
-            : "Booking rejected successfully.",
-        booking,
-      });
-    } catch (error) {
-      console.error("Update booking status error:", error);
-
-      return res.status(500).json({
-        message: "Could not update booking status.",
-      });
-    }
-  }
-);
-
-// Handle upload errors as JSON
-app.use((err, req, res, next) => {
-  if (err instanceof multer.MulterError) {
-    return res.status(400).json({
-      message:
-        err.code === "LIMIT_FILE_SIZE"
-          ? "Har image 5 MB se chhoti honi chahiye."
-          : "Image upload limit exceed ho gayi.",
-    });
-  }
-
-  if (err) {
-    return res.status(400).json({
-      message: err.message || "Upload failed.",
-    });
-  }
-
-  next();
-});
-
-// Start server after connecting to MongoDB
-const PORT = process.env.PORT || 5000;
-
-async function startServer() {
-  try {
-    if (!process.env.MONGO_URI) {
-      throw new Error("MONGO_URI .env file mein set nahi hai.");
-    }
-
-    if (!process.env.JWT_SECRET) {
-      throw new Error("JWT_SECRET .env file mein set nahi hai.");
-    }
-
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log("MongoDB Connected Successfully!");
-
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-  } catch (error) {
-    console.error("Server startup error:", error.message);
-    process.exit(1);
-  }
-}
-
-startServer();

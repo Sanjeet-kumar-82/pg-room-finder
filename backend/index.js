@@ -1,11 +1,9 @@
-
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
-const cloudinary = require("cloudinary").v2;
 const path = require("path");
 const fs = require("fs");
 require("dotenv").config();
@@ -13,27 +11,19 @@ require("dotenv").config();
 const Property = require("./Property");
 const User = require("./User");
 const Booking = require("./Booking");
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: "pg-room-finder",
-    allowed_formats: ["jpg", "jpeg", "png", "webp"],
-    resource_type: "image",
-  },
-});
+const uploadDir = path.join(__dirname, "uploads");
 
-// Authentication middleware
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+app.use("/uploads", express.static(uploadDir));
 
 // Authentication middleware
 function authenticateToken(req, res, next) {
