@@ -4,9 +4,14 @@ const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
 require("dotenv").config();
+const ImageKit = require("imagekit");
+
+const imagekit = new ImageKit({
+  publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
+  privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
+  urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
+});
 
 const Property = require("./Property");
 const User = require("./User");
@@ -17,13 +22,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const uploadDir = path.join(__dirname, "uploads");
 
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
-
-app.use("/uploads", express.static(uploadDir));
 
 // Authentication middleware
 function authenticateToken(req, res, next) {
@@ -80,20 +79,8 @@ function requireCustomer(req, res, next) {
   next();
 }
 
-// Image upload configuration
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadDir),
-
-  filename: (req, file, cb) => {
-    const uniqueName =
-      Date.now() +
-      "-" +
-      Math.round(Math.random() * 1e9) +
-      path.extname(file.originalname).toLowerCase();
-
-    cb(null, uniqueName);
-  },
-});
+// Image upload configuration for ImageKit
+const storage = multer.memoryStorage();
 
 const upload = multer({
   storage,
@@ -322,13 +309,31 @@ app.post(
         }
       }
 
-      const ownerPhoto = req.files?.ownerPhoto?.[0]
-        ? `/uploads/${req.files.ownerPhoto[0].filename}`
-        : "";
+     // Upload owner photo to ImageKit
+const ownerPhotoFile = req.files?.ownerPhoto?.[0];
 
-      const pgPhotos = (req.files?.pgPhotos || []).map(
-        (file) => `/uploads/${file.filename}`
-      );
+const ownerPhoto = ownerPhotoFile
+  ? (
+      await imagekit.upload({
+        file: ownerPhotoFile.buffer,
+        fileName: `owner-${Date.now()}-${Math.round(Math.random() * 1e9)}-${ownerPhotoFile.originalname}`,
+        folder: "/pg-room-finder/owners",
+      })
+    ).url
+  : "";
+
+// Upload PG photos to ImageKit
+const pgPhotos = await Promise.all(
+  (req.files?.pgPhotos || []).map(async (file) => {
+    const result = await imagekit.upload({
+      file: file.buffer,
+      fileName: `pg-${Date.now()}-${Math.round(Math.random() * 1e9)}-${file.originalname}`,
+      folder: "/pg-room-finder/properties",
+    });
+
+    return result.url;
+  })
+);
 
       const property = await Property.create({
         title: (pgName || title).trim(),
