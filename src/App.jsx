@@ -200,9 +200,9 @@ const response = await axios.post(
       return photo;
     }
 
-    return `http://localhost:5000${
-      photo.startsWith("/") ? "" : "/"
-    }${photo}`;
+    return `https://pg-room-finder-backend.onrender.com${
+  photo.startsWith("/") ? "" : "/"
+}${photo}`;
   }
 
   return (
