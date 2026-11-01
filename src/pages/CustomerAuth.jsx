@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const API = "http://localhost:5000/api/auth";
+const API = "https://pg-room-finder-backend.onrender.com/api/auth";
 
 export default function CustomerAuth({ mode = "login" }) {
   const navigate = useNavigate();
