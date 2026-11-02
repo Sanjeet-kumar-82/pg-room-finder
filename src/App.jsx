@@ -741,24 +741,7 @@ const response = await axios.post(
           </div>
         </section>
 
-        <section className="owner-section section" id="owner">
-          <div className="owner-heading">
-            <span className="section-kicker">
-              FOR PROPERTY OWNERS
-            </span>
-            <h2>Have a room to rent?</h2>
-            <p>
-              Add your property details and photos on a separate page.
-            </p>
-
-            <button
-              className="btn btn-primary"
-              onClick={() => navigate("/add-property")}
-            >
-              + List Property
-            </button>
-          </div>
-        </section>
+      
       </main>
 
       <footer className="footer">
